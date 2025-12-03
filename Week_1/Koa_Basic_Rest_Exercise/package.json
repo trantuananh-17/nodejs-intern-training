@@ -17,6 +17,7 @@
   "license": "ISC",
   "devDependencies": {
     "@types/koa": "^3.0.1",
+    "@types/koa__cors": "^5.0.1",
     "@types/koa-bodyparser": "^4.3.13",
     "@types/koa-ejs": "^4.3.3",
     "@types/koa-morgan": "^1.0.9",
@@ -33,6 +34,7 @@
   },
   "dependencies": {
     "@faker-js/faker": "^10.1.0",
+    "@koa/cors": "^5.0.0",
     "@types/koa-router": "^7.4.9",
     "dotenv": "^17.2.3",
     "koa": "^3.1.1",

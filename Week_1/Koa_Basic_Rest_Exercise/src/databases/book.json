@@ -1,15 +1,5 @@
 [
   {
-    "id": 1,
-    "name": "Bespoke Granite Fish",
-    "price": 122.39,
-    "description": "The sleek and near Tuna comes with pink LED lighting for smart functionality",
-    "product": "Chips",
-    "color": "magenta",
-    "createdAt": "2025-04-01T06:40:52.657Z",
-    "image": "https://picsum.photos/seed/JnGjrxJ/600/600?grayscale&blur=6"
-  },
-  {
     "id": 2,
     "name": "Oriental Rubber Pizza",
     "price": 74.79,
