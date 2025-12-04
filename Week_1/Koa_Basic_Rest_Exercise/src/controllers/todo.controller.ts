@@ -1,6 +1,7 @@
 import { ICreateTodoDto } from '../databases/interfaces/todo.interface';
 import { todoRepository } from '../databases/repositories/todo.repository';
 import { Context } from 'koa';
+import logger from '../helpers/logger.helper';
 class TodoController {
   public async getTodos(ctx: Context) {
     try {
@@ -79,6 +80,52 @@ class TodoController {
       return (ctx.body = {
         success: true,
         message: 'Todo deleted successfully'
+      });
+    } catch (error) {
+      const err = error as Error;
+
+      ctx.status = 404;
+      ctx.body = {
+        success: false,
+        error: err.message
+      };
+    }
+  }
+
+  public async updateManyTodo(ctx: Context) {
+    try {
+      const { todoIds, isCompleted } = ctx.request.body as { todoIds: number[]; isCompleted: boolean };
+
+      const updatedTodos = await todoRepository.updateManyTodo(todoIds, isCompleted);
+      logger.info(JSON.stringify(updatedTodos));
+
+      ctx.status = 200;
+      return (ctx.body = {
+        success: true,
+        data: updatedTodos,
+        message: 'Todos updated successfully'
+      });
+    } catch (error) {
+      const err = error as Error;
+
+      ctx.status = 404;
+      ctx.body = {
+        success: false,
+        error: err.message
+      };
+    }
+  }
+
+  public async deleteManyTodo(ctx: Context) {
+    try {
+      const { todoIds } = ctx.request.body as { todoIds: number[] };
+
+      await todoRepository.deleteManyTodo(todoIds);
+
+      ctx.status = 200;
+      return (ctx.body = {
+        success: true,
+        message: 'Todos deleted successfully'
       });
     } catch (error) {
       const err = error as Error;

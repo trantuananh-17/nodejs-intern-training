@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 function useFetchApi({ url }) {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState({});
   const [loading, setLoading] = useState(false);
   const [fetched, setFetched] = useState(false);
 
@@ -10,7 +10,7 @@ function useFetchApi({ url }) {
       setLoading(true);
       const res = await fetch(url);
       const resData = await res.json();
-
+      await new Promise((resolve) => setTimeout(resolve, 1500));
       setData(resData);
       setLoading(false);
       setFetched(true);

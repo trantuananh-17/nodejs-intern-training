@@ -8,4 +8,13 @@ const createTodoSchema = yup.object().shape({
   text: yup.string()
 });
 
-export { createTodoSchema, updateTodoSchema };
+const updateManySchema = yup.object().shape({
+  todoIds: yup.array().of(yup.number().required()).required(),
+  isCompleted: yup.boolean()
+});
+
+const deleteManySchema = yup.object().shape({
+  todoIds: yup.array().of(yup.number().required()).required()
+});
+
+export { createTodoSchema, updateTodoSchema, updateManySchema, deleteManySchema };

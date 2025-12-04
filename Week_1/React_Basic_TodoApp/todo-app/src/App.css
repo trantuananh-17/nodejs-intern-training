@@ -11,13 +11,13 @@
   display: flex-column;
 }
 
-.wrap {
+/* .wrap {
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 20px;
   margin: 60px;
-}
+} */
 
 .msg {
   text-align: center;
