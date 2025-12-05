@@ -1,22 +1,15 @@
 import urlPath from "../utils/data.js";
+import fetchData from "../utils/fetchData.js";
 
-class CommentService {
-  async getAllComments() {
-    const data = await fetch(urlPath.comments);
-
-    const comments = await data.json();
-    return comments;
-  }
-
-  async getCommentsByPostId(postId) {
-    console.log(`${urlPath.comments}?postId=${postId}`);
-
-    const data = await fetch(`${urlPath.comments}?postId=${postId}`);
-
-    const comments = await data.json();
-
-    return comments;
-  }
+async function getComments() {
+  return await fetchData(urlPath.comments);
 }
 
-export const commentService = new CommentService();
+async function getCommentsByPostId(postId) {
+  return await fetchData(`${urlPath.comments}?postId=${postId}`);
+}
+
+export const commentService = {
+  getComments,
+  getCommentsByPostId,
+};

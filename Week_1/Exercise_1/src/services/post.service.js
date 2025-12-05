@@ -1,32 +1,25 @@
 import urlPath from "../utils/data.js";
-import { commentService } from "./comment.service.js";
+import fetchData from "../utils/fetchData.js";
 
-class PostService {
-  async getAllPosts() {
-    const data = await fetch(urlPath.posts);
-
-    const posts = await data.json();
-    return posts;
-  }
-
-  async getPostById(postId) {
-    const data = await fetch(`${urlPath.posts}/${postId}`);
-
-    const post = await data.json();
-    return post;
-  }
-
-  async getPostInfoById(postId) {
-    const [post, comments] = await Promise.all([
-      this.getPostById(postId),
-      commentService.getCommentsByPostId(postId),
-    ]);
-
-    return {
-      ...post,
-      comments: comments,
-    };
-  }
+async function getPosts() {
+  return fetchData(urlPath.posts);
 }
 
-export const postService = new PostService();
+async function getPostById(postId) {
+  return fetchData(`${urlPath.posts}/${postId}`);
+}
+
+async function getPostInfoById(postId) {
+  const [post, comments] = await Promise.all([
+    fetchData(`${urlPath.posts}/${postId}`),
+    fetchData(`${urlPath.comments}?postId=${postId}`),
+  ]);
+
+  return { ...post, comments };
+}
+
+export const postService = {
+  getPosts,
+  getPostById,
+  getPostInfoById,
+};
