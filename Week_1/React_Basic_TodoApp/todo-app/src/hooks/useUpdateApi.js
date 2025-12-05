@@ -5,7 +5,7 @@ function useUpdateApi() {
 
   async function updateData({ url, body }) {
     try {
-      setLoading(false);
+      setLoading(true);
       const res = await fetch(url, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },

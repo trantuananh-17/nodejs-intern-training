@@ -1,51 +1,51 @@
-import { ICreateTodoDto } from '../databases/interfaces/todo.interface';
-import { todoRepository } from '../databases/repositories/todo.repository';
-import { Context } from 'koa';
-import logger from '../helpers/logger.helper';
-async function getTodos(ctx: Context) {
+import { Context } from "koa";
+import { todoRepository } from "./todo.repository";
+import { ICreateTodoDto } from "./todo.interface";
+
+async function getTodos(ctx: Context): Promise<void> {
   try {
     const todos = await todoRepository.getTodos();
 
     ctx.status = 200;
-    return (ctx.body = {
+    ctx.body = {
       success: true,
       data: todos,
-      message: 'Todos fetched successfully'
-    });
+      message: "Lấy danh sách todo thành công",
+    };
   } catch (error) {
     const err = error as Error;
 
     ctx.status = 404;
     ctx.body = {
       success: false,
-      error: err.message
+      error: err.message,
     };
   }
 }
 
-async function createTodo(ctx: Context) {
+async function createTodo(ctx: Context): Promise<void> {
   try {
     const todoData = ctx.request.body;
     const todo = await todoRepository.createTodo(todoData as ICreateTodoDto);
 
     ctx.status = 201;
-    return (ctx.body = {
+    ctx.body = {
       success: true,
       data: todo,
-      message: 'Todo created successfully'
-    });
+      message: "Thêm mới todo thành công",
+    };
   } catch (error) {
     const err = error as Error;
 
     ctx.status = 404;
     ctx.body = {
       success: false,
-      error: err.message
+      error: err.message,
     };
   }
 }
 
-async function updateCompletedTodo(ctx: Context) {
+async function updateCompletedTodo(ctx: Context): Promise<void> {
   try {
     const todoId = ctx.params.todoId;
 
@@ -53,86 +53,91 @@ async function updateCompletedTodo(ctx: Context) {
 
     const todo = await todoRepository.updateCompletedTodo(todoId, isCompleted);
     ctx.status = 200;
-    return (ctx.body = {
+    ctx.body = {
       success: true,
       data: todo,
-      message: 'Todo updated successfully'
-    });
+      message: "Cập nhật todo thành công",
+    };
   } catch (error) {
     const err = error as Error;
 
     ctx.status = 404;
     ctx.body = {
       success: false,
-      error: err.message
+      error: err.message,
     };
   }
 }
 
-async function deleteTodo(ctx: Context) {
+async function deleteTodo(ctx: Context): Promise<void> {
   try {
     const todoId = ctx.params.todoId;
 
     await todoRepository.deleteTodo(todoId);
 
     ctx.status = 200;
-    return (ctx.body = {
+    ctx.body = {
       success: true,
-      message: 'Todo deleted successfully'
-    });
+      message: "Xóa todo thành công",
+    };
   } catch (error) {
     const err = error as Error;
 
     ctx.status = 404;
     ctx.body = {
       success: false,
-      error: err.message
+      error: err.message,
     };
   }
 }
 
-async function updateManyTodo(ctx: Context) {
+async function updateManyTodo(ctx: Context): Promise<void> {
   try {
-    const { todoIds, isCompleted } = ctx.request.body as { todoIds: string[]; isCompleted: boolean };
+    const { todoIds, isCompleted } = ctx.request.body as {
+      todoIds: string[];
+      isCompleted: boolean;
+    };
 
-    const updatedTodos = await todoRepository.updateManyTodo(todoIds, isCompleted);
-    logger.info(JSON.stringify(updatedTodos));
+    const updatedTodos = await todoRepository.updateManyTodo(
+      todoIds,
+      isCompleted
+    );
 
     ctx.status = 200;
-    return (ctx.body = {
+    ctx.body = {
       success: true,
       data: updatedTodos,
-      message: 'Todos updated successfully'
-    });
+      message: "Todos updated successfully",
+    };
   } catch (error) {
     const err = error as Error;
 
     ctx.status = 404;
     ctx.body = {
       success: false,
-      error: err.message
+      error: err.message,
     };
   }
 }
 
-async function deleteManyTodo(ctx: Context) {
+async function deleteManyTodo(ctx: Context): Promise<void> {
   try {
     const { todoIds } = ctx.request.body as { todoIds: string[] };
 
     await todoRepository.deleteManyTodo(todoIds);
 
     ctx.status = 200;
-    return (ctx.body = {
+    ctx.body = {
       success: true,
-      message: 'Todos deleted successfully'
-    });
+      message: "Todos deleted successfully",
+    };
   } catch (error) {
     const err = error as Error;
 
     ctx.status = 404;
     ctx.body = {
       success: false,
-      error: err.message
+      error: err.message,
     };
   }
 }
@@ -143,5 +148,5 @@ export const todoController = {
   updateCompletedTodo,
   deleteTodo,
   updateManyTodo,
-  deleteManyTodo
+  deleteManyTodo,
 };

@@ -5,7 +5,7 @@ function useDeleteApi() {
 
   async function deleteData({ url, body }) {
     try {
-      setLoading(false);
+      setLoading(true);
       const res = await fetch(url, {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },

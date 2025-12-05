@@ -1,7 +1,7 @@
 import Router from 'koa-router';
-import { bookController } from '../controllers/book.controller';
 import { validateInput } from '../middlewares/validateInput.middleware';
 import { bookSchema, updateBookSchema } from '../databases/schemas/book.schema';
+import { bookController } from '../controllers/book.controller';
 
 const bookRoute = new Router();
 

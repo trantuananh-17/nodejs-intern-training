@@ -1,7 +1,5 @@
 import {
   BlockStack,
-  Box,
-  Button,
   Form,
   FormLayout,
   Modal,
@@ -12,15 +10,19 @@ import {
 } from "@shopify/polaris";
 import { PlusIcon } from "@shopify/polaris-icons";
 import { useCallback, useState } from "react";
-import ResourceListData from "./ResourceListData";
-import useFetchApi from "../../hooks/useFetchApi";
 import useCreateApi from "../../hooks/useCreateApi";
 import useDeleteApi from "../../hooks/useDeleteApi";
+import useFetchApi from "../../hooks/useFetchApi";
 import useUpdateApi from "../../hooks/useUpdateApi";
+import EmptyTodo from "./EmptyTodo";
+import ResourceListData from "./ResourceListData";
+import { envConfig } from "../../configs/env.config";
+import LoadingOverlay from "./LoadingOverLay";
 
 function PageContent() {
   const [activeModal, setActiveModal] = useState(false);
   const [text, setText] = useState("");
+  console.log(envConfig.server.url);
 
   const {
     data,
@@ -28,18 +30,21 @@ function PageContent() {
     loading: fetchLoading,
     fetched,
   } = useFetchApi({
-    url: "http://localhost:5000/api/v1/todos",
+    url: envConfig.server.url,
+    // url: "http://localhost:5000/api/v1/todos",
   });
 
-  const { createData } = useCreateApi();
+  console.log(data);
 
-  const { updateData } = useUpdateApi();
+  const { createData, loading: createLoading } = useCreateApi();
 
-  const { deleteData } = useDeleteApi();
+  const { updateData, loading: updateLoading } = useUpdateApi();
+
+  const { deleteData, loading: deleteLoading } = useDeleteApi();
 
   const hanleCreateTodo = async ({ text }) => {
     const todo = await createData({
-      url: "http://localhost:5000/api/v1/todos",
+      url: envConfig.server.url,
       body: { text },
     });
 
@@ -54,7 +59,7 @@ function PageContent() {
 
   const handleUpdateTodo = async ({ id }) => {
     const todo = await updateData({
-      url: `http://localhost:5000/api/v1/todos/${id}`,
+      url: `${envConfig.server.url}/${id}`,
       body: { isCompleted: true },
     });
 
@@ -71,7 +76,7 @@ function PageContent() {
 
   const handleDeleteTodo = async ({ id }) => {
     const deletedTodo = await deleteData({
-      url: `http://localhost:5000/api/v1/todos/${id}`,
+      url: `${envConfig.server.url}/${id}`,
     });
 
     if (!deletedTodo?.success) {
@@ -85,22 +90,22 @@ function PageContent() {
 
   const handleDeleteManyTodo = async ({ todoIds }) => {
     const deletedTodos = await deleteData({
-      url: `http://localhost:5000/api/v1/todos/delete-many`,
+      url: `${envConfig.server.url}/delete-many`,
       body: { todoIds },
     });
 
     if (!deletedTodos?.success) {
       return;
+    } else {
+      const newTodos = data.data.filter((todo) => !todoIds.includes(todo.id));
+
+      setData({ ...data, data: newTodos });
     }
-
-    const newTodos = data.data.filter((todo) => !todoIds.includes(todo.id));
-
-    setData({ ...data, data: newTodos });
   };
 
   const hanleUpdateManyTodo = async ({ todoIds, isCompleted }) => {
     const updatedData = await updateData({
-      url: `http://localhost:5000/api/v1/todos/update-many`,
+      url: `${envConfig.server.url}/update-many`,
       body: { todoIds, isCompleted },
     });
 
@@ -127,13 +132,14 @@ function PageContent() {
   // Form
   const handleSubmit = useCallback(() => {
     const payload = { text };
-    console.log(payload);
     hanleCreateTodo(payload);
     setActiveModal(false);
     setText("");
   }, [text]);
 
   const handleTextChange = useCallback((value) => setText(value), []);
+
+  console.log({ createLoading, updateLoading, deleteLoading });
 
   return (
     <Page
@@ -144,7 +150,10 @@ function PageContent() {
         accessibilityLabel: "Create todo",
         onAction: handleChange,
       }}
+      style={{ position: "relative" }}
     >
+      {(createLoading || updateLoading || deleteLoading) && <LoadingOverlay />}
+
       {/* List todo */}
       {fetchLoading ? (
         <BlockStack inlineAlign="center">
@@ -164,6 +173,8 @@ function PageContent() {
           />
         </BlockStack>
       )}
+
+      {fetched && data?.data.length === 0 && <EmptyTodo />}
 
       {/* Modal */}
       <Modal

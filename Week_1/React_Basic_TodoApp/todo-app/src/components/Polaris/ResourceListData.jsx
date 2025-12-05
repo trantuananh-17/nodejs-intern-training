@@ -37,7 +37,7 @@ function ResourceListData({
       {selectedItems.length > 0 && (
         <div
           style={{
-            display: "flex",
+            display: "fixed",
             justifyContent: "center",
             zIndex: 10,
             marginTop: "10px",

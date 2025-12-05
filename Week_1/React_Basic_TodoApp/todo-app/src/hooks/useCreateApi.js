@@ -5,7 +5,7 @@ function useCreateApi() {
 
   async function createData({ url, body }) {
     try {
-      setLoading(false);
+      setLoading(true);
       const res = await fetch(url, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
