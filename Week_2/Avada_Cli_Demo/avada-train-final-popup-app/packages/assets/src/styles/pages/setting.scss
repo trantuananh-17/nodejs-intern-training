@@ -1,0 +1,58 @@
+.Polaris-Tabs__Tab--active {
+  background: none !important;
+}
+
+.Avada_SP_tabs > .Polaris-Box {
+  border-bottom: 2px solid #e3e3e3;
+}
+
+.Polaris-Tabs__Tab--active::after {
+  content: '';
+
+  height: 3px;
+  width: 70%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 35px;
+  background: #008060;
+}
+
+.Polaris-Select__Backdrop,
+.Polaris-TextField__Backdrop {
+  border-radius: var(--p-border-radius-100);
+}
+
+.Polaris-RangeSlider--trackDashedAfter::after {
+  background: #c9ced6 !important;
+  border-right: none;
+}
+
+.Polaris-RangeSlider-SingleThumb__Input {
+  --pc-single-thumb-progress-lower: var(--p-color-bg-fill-magic);
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.Polaris-RangeSlider-SingleThumb__Input::-webkit-slider-thumb {
+  background: #fff;
+  border: 1px solid #d1d1d1;
+}
+
+.Polaris-RangeSlider-SingleThumb__Input::-webkit-slider-thumb:hover {
+  background: #fff;
+}
+
+.Polaris-RangeSlider-SingleThumb__Input:focus::-webkit-slider-thumb {
+  box-shadow: none;
+  border: 1px solid #d1d1d1;
+}
+
+.Polaris-Checkbox__Icon svg {
+  color: var(--p-color-bg-fill-magic);
+}
+
+.Polaris-Checkbox__Input:checked + .Polaris-Checkbox__Backdrop,
+.Polaris-Checkbox__ChoiceLabel .Polaris-Checkbox__Backdrop {
+  box-shadow: inset 0 0 0 var(--p-border-width-0165) var(--p-color-bg-fill-magic);
+  background-color: white;
+}

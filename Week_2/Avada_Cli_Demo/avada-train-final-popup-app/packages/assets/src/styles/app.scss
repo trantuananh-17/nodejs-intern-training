@@ -1,0 +1,49 @@
+@import 'colors';
+@import 'scrollbar';
+@import 'components';
+
+body[data-lock-scrolling] {
+  overflow: auto hidden;
+}
+
+.Polaris-Frame,
+.Polaris-Frame__Content,
+.Polaris-Frame__Main,
+.Polaris-Frame__Body {
+  background-color: #ffffff !important;
+}
+
+.Avada-Frame {
+  display: flex;
+  height: calc(100vh - 5.6rem);
+}
+
+.Polaris-Header-Title__TitleWithMetadataWrapper {
+  display: flex;
+  align-items: center;
+
+  .Polaris-Header-Title__TitleMetadata {
+    margin-top: 0;
+  }
+}
+
+.Polaris-Modal-Dialog__Container {
+  .Polaris-Modal-Header {
+    align-items: center;
+
+    .Polaris-Modal-CloseButton {
+      margin-left: 1rem;
+    }
+  }
+}
+.Polaris-TopBar {
+  background-color: #ffffff !important;
+  border-bottom: 1px solid #dfe3e8 !important;
+}
+.Polaris-Pagination .Polaris-Button {
+  border: 1px solid #babfc3 !important;
+  background: var(--p-color-bg-surface) !important;
+}
+.Polaris-Button {
+  border-radius: var(--p-border-radius-100) !important;
+}
