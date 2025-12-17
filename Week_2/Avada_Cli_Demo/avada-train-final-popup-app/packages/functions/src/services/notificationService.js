@@ -1,6 +1,7 @@
 import * as orderService from '@functions/services/orderService';
 import * as notificationRepository from '@functions/repositories/notificationRepository';
 import * as shopRepository from '@functions/repositories/shopRepository';
+import * as webhookRepository from '@functions/repositories/webhookRepository';
 
 /**
  *
@@ -21,11 +22,73 @@ export async function syncOrdersToNotification(shopData) {
 
   const orders = await orderService.getLatestOrders(shopData);
 
-  await notificationRepository.createNotification(orders, shopData.id, shopData.shopifyDomain);
+  await notificationRepository.createNotifications(orders, shopData.id, shopData.shopifyDomain);
 
   await shopRepository.updateCheckSync(shopData.id);
 }
 
+/**
+ *
+ * @param {*} shopId
+ * @param {*} shopifyDomain
+ * @returns {Promise<{
+ *   city: string;
+ *   country: string;
+ *   firstName: string;
+ *   productId: number;
+ *   productName: string;
+ *   productImage: any;
+ *   timestamp: Date;
+ *   shopId: string;
+ *   shopDomain: string;
+ * }[]>}
+ */
 export async function getNotifications(shopId, shopifyDomain) {
   return notificationRepository.getNotifications(shopId, shopifyDomain);
+}
+
+/**
+ *
+ * @param {*} shopData
+ * @param {*} orderData
+ * @returns {Promise<{
+ *   city: string;
+ *   country: string;
+ *   firstName: string;
+ *   productId: number;
+ *   productName: string;
+ *   productImage: any;
+ *   timestamp: Date;
+ * }>}
+ */
+export async function getNotificationItem(shopData, orderData) {
+  if (!orderData) {
+    throw new Error('Order not found');
+  }
+
+  const productImage = await webhookRepository.getProductByProductId(
+    shopData,
+    orderData.line_items[0].product_id
+  );
+
+  return {
+    city: orderData.shipping_address.city,
+    country: orderData.shipping_address.country,
+    firstName: orderData.customer.first_name,
+    productId: orderData.line_items[0].id,
+    productName: orderData.line_items[0].title,
+    productImage,
+    timestamp: new Date(orderData.created_at)
+  };
+}
+
+/**
+ *
+ * @param {*} shopId
+ * @param {*} shopifyDomain
+ * @param {*} data
+ * @returns {Promise<void>}
+ */
+export async function addNotification(shopId, shopifyDomain, data) {
+  return notificationRepository.addNotification(shopId, shopifyDomain, data);
 }

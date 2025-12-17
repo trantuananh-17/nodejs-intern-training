@@ -1,5 +1,5 @@
 (function() {
-  const BASE_URL = 'https://increases-venue-track-cheap.trycloudflare.com/scripttag';
+  const BASE_URL = 'https://maybe-taken-batteries-lil.trycloudflare.com/scripttag';
 
   const scriptElement = document.createElement('script');
   scriptElement.type = 'text/javascript';

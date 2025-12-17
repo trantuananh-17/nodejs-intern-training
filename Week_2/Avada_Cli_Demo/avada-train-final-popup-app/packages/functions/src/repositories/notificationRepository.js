@@ -20,7 +20,7 @@ export async function getNotifications(id, domain) {
   return snapshot.docs.map(doc => presentDataAndFormatDate(doc));
 }
 
-export async function createNotification(notifications, shopId, domain) {
+export async function createNotifications(notifications, shopId, domain) {
   const batch = firestore.batch();
 
   notifications.forEach(n => {
@@ -36,4 +36,8 @@ export async function createNotification(notifications, shopId, domain) {
   await batch.commit();
 
   return true;
+}
+
+export async function addNotification(shopId, shopifyDomain, data) {
+  await notificationRef.doc().set({...data, shopId, shopifyDomain});
 }

@@ -20,6 +20,9 @@ export async function getSetting(ctx) {
     };
   } catch (e) {
     console.error(e);
+    return (ctx.body = {
+      success: false
+    });
   }
 }
 
@@ -40,6 +43,9 @@ export async function updateOne(ctx) {
     ctx.body = {success: true};
   } catch (e) {
     console.error(e);
+    return (ctx.body = {
+      success: false
+    });
   }
 }
 
@@ -56,5 +62,8 @@ export async function createInitSettingAfterLogin(ctx) {
     await settingService.createInitSettingAfterLogin(shopID);
   } catch (e) {
     console.error(e);
+    return (ctx.body = {
+      success: false
+    });
   }
 }

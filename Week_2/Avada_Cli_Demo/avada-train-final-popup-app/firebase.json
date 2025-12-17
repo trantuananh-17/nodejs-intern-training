@@ -70,6 +70,10 @@
         "function": "embedApp"
       },
       {
+        "source": "/webhook/**",
+        "function": "webhook"
+      },
+      {
         "source": "**",
         "destination": "/standalone.html"
       }

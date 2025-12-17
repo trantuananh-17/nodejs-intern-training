@@ -13,8 +13,11 @@ export async function syncOrdersToNotifications(ctx) {
     const data = await notificationService.syncOrdersToNotification(shopData);
 
     console.log(data);
-  } catch (error) {
-    console.log(error);
+  } catch (e) {
+    console.error(e);
+    return (ctx.body = {
+      success: false
+    });
   }
 }
 
@@ -27,6 +30,8 @@ export async function getNotifications(ctx) {
   try {
     const shopData = getCurrentShopData(ctx);
 
+    console.log(shopData);
+
     const data = await notificationService.getNotifications(shopData.id, shopData.shopifyDomain);
 
     ctx.status = 200;
@@ -35,7 +40,10 @@ export async function getNotifications(ctx) {
       message: 'Lấy danh sách thông báo thành công',
       data
     };
-  } catch (error) {
-    console.log(error);
+  } catch (e) {
+    console.error(e);
+    return (ctx.body = {
+      success: false
+    });
   }
 }
