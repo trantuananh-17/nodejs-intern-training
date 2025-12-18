@@ -1,5 +1,7 @@
 import * as notificationService from '@functions/services/notificationService';
-import {getCurrentShopData} from '../helpers/auth';
+import * as shopService from '@functions/services/shopService';
+import * as settingService from '@functions/services/settingService';
+import {getCurrentShopData} from '@functions/helpers/auth';
 
 /**
  *
@@ -39,6 +41,40 @@ export async function getNotifications(ctx) {
       success: true,
       message: 'Lấy danh sách thông báo thành công',
       data
+    };
+  } catch (e) {
+    console.error(e);
+    return (ctx.body = {
+      success: false
+    });
+  }
+}
+
+/**
+ *
+ * @param ctx
+ * @returns {Promise<void>}
+ */
+export async function getNotificationsAndSetting(ctx) {
+  try {
+    const shopifyDomain = ctx.query.shopifyDomain;
+
+    console.log('shopifyDomain', shopifyDomain);
+
+    const shopData = await shopService.getShopByShopifyDomain(shopifyDomain);
+
+    const [notifications, setting] = await Promise.all([
+      await notificationService.getNotificationsByShopifyDomain(shopifyDomain),
+      await settingService.getSettingByShopIdForClientApi(shopData.id)
+    ]);
+
+    ctx.status = 200;
+    ctx.body = {
+      success: true,
+      data: {
+        notifications,
+        setting
+      }
     };
   } catch (e) {
     console.error(e);

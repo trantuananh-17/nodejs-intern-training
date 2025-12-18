@@ -20,6 +20,12 @@ export async function getNotifications(id, domain) {
   return snapshot.docs.map(doc => presentDataAndFormatDate(doc));
 }
 
+export async function getNotificationsByShopyfiDomain(domain) {
+  const snapshot = await notificationRef.where('shopifyDomain', '==', domain).get();
+
+  return snapshot.docs.map(doc => presentDataAndFormatDate(doc));
+}
+
 export async function createNotifications(notifications, shopId, domain) {
   const batch = firestore.batch();
 

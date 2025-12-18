@@ -92,3 +92,11 @@ export async function getNotificationItem(shopData, orderData) {
 export async function addNotification(shopId, shopifyDomain, data) {
   return notificationRepository.addNotification(shopId, shopifyDomain, data);
 }
+
+export async function getNotificationsByShopifyDomain(shopifyDomain) {
+  const data = await notificationRepository.getNotificationsByShopyfiDomain(shopifyDomain);
+
+  const notifications = data.map(({shopId, shopifyDomain, ...rest}) => rest);
+
+  return notifications;
+}

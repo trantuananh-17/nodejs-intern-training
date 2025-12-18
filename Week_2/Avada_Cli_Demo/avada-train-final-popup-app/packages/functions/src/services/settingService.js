@@ -10,6 +10,11 @@ export async function updateSetting(shopID, data) {
   return await settingRepository.updateSetting(shopID, data);
 }
 
+/**
+ *
+ * @param {*} shopID
+ * @returns {Promise<setting>}
+ */
 export async function getSettingByShopId(shopID) {
   const setting = await settingRepository.getSettingByShopId(shopID);
 
@@ -17,7 +22,34 @@ export async function getSettingByShopId(shopID) {
 
   return setting;
 }
+/**
+ * Hàm này sẽ loại bỏ các dữ liệu: created at, updated at, shopID
+ *
+ * @param {*} shopId
+ * @returns {Promise<setting>}
+ */
+export async function getSettingByShopIdForClientApi(shopId) {
+  const setting = await getSettingByShopId(shopId);
 
+  return {
+    position: setting.position,
+    hideTimeAgo: setting.hideTimeAgo,
+    truncateProductName: setting.truncateProductName,
+    displayDuration: setting.displayDuration,
+    firstDelay: setting.firstDelay,
+    popsInterval: setting.popsInterval,
+    maxPopsDisplay: setting.maxPopsDisplay,
+    includedUrls: setting.includedUrls,
+    excludedUrls: setting.excludedUrls,
+    allowShow: setting.allowShow
+  };
+}
+
+/**
+ *
+ * @param {*} shopID
+ * @returns {Promise<void>}
+ */
 export async function createInitSettingAfterLogin(shopID) {
   const setting = await settingRepository.getSettingByShopId(shopID);
 

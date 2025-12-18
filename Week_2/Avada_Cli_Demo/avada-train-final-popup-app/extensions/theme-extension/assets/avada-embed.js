@@ -1,5 +1,5 @@
 (function() {
-  const BASE_URL = 'https://national-sponsored-downloaded-mem.trycloudflare.com/scripttag';
+  const BASE_URL = 'https://zus-multiple-cho-airlines.trycloudflare.com/scripttag';
 
   const scriptElement = document.createElement('script');
   scriptElement.type = 'text/javascript';
