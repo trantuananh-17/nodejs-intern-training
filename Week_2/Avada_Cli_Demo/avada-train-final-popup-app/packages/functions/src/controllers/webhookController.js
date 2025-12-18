@@ -8,8 +8,6 @@ export async function listenNewOrder(ctx) {
 
     await webhookService.listenNewOrder(shopifyDomain, orderData);
 
-    console.log('Create webhook successfully');
-
     ctx.status = 200;
     ctx.body = {
       success: true
@@ -28,7 +26,7 @@ export async function createWebhook(ctx) {
 
     await webhookService.registerWebhook(shopData);
 
-    console.log('successssssssssssssssssssssssssss');
+    console.log('Create webhook successfully');
 
     ctx.status = 200;
     ctx.body = {

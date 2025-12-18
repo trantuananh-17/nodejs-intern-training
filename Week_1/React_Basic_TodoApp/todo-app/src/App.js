@@ -1,6 +1,6 @@
 import "./App.css";
-import AppLayout from "./layouts/AppLayout";
-import TodoPolaris from "./pages/TodoPolaris";
+import AppLayout from "./layouts/AppLayout/AppLayout";
+import TodoPolaris from "./pages/TodoPolaris/TodoPolaris";
 
 function App() {
   return (

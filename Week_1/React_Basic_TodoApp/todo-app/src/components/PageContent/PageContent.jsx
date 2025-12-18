@@ -14,15 +14,14 @@ import useCreateApi from "../../hooks/useCreateApi";
 import useDeleteApi from "../../hooks/useDeleteApi";
 import useFetchApi from "../../hooks/useFetchApi";
 import useUpdateApi from "../../hooks/useUpdateApi";
-import EmptyTodo from "./EmptyTodo";
-import ResourceListData from "./ResourceListData";
 import { envConfig } from "../../configs/env.config";
-import LoadingOverlay from "./LoadingOverLay";
+import ResourceListData from "../ResourceListData";
+import LoadingOverlay from "../LoadingOverLay";
+import EmptyTodo from "../EmptyTodo";
 
 function PageContent() {
   const [activeModal, setActiveModal] = useState(false);
   const [text, setText] = useState("");
-  console.log(envConfig.server.url);
 
   const {
     data,
@@ -31,10 +30,7 @@ function PageContent() {
     fetched,
   } = useFetchApi({
     url: envConfig.server.url,
-    // url: "http://localhost:5000/api/v1/todos",
   });
-
-  console.log(data);
 
   const { createData, loading: createLoading } = useCreateApi();
 

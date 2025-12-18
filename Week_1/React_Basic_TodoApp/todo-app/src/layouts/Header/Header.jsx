@@ -1,6 +1,6 @@
-import { TopBar, ActionList, Icon, Frame, Text } from "@shopify/polaris";
+import { ActionList, Icon, Text, TopBar } from "@shopify/polaris";
 import { ArrowLeftIcon, NotificationIcon } from "@shopify/polaris-icons";
-import { useState, useCallback } from "react";
+import { useCallback, useState } from "react";
 
 function Header() {
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);

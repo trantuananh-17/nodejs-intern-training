@@ -1,11 +1,11 @@
 // import "./App.css";
 
-import Todo from "../components/Todo";
-import TodoForm from "../components/TodoForm";
-import useCreateApi from "../hooks/useCreateApi";
-import useDeleteApi from "../hooks/useDeleteApi";
-import useFetchApi from "../hooks/useFetchApi";
-import useUpdateApi from "../hooks/useUpdateApi";
+import Todo from "../../components/Todo";
+import TodoForm from "../../components/TodoForm";
+import useCreateApi from "../../hooks/useCreateApi";
+import useDeleteApi from "../../hooks/useDeleteApi";
+import useFetchApi from "../../hooks/useFetchApi";
+import useUpdateApi from "../../hooks/useUpdateApi";
 
 function TodoBasic() {
   const {

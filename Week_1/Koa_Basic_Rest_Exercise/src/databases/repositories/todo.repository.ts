@@ -1,21 +1,12 @@
-import { readData, writeDataToFile } from '../../helpers/file';
-import { ICreateTodoDto, ITodoDto } from '../interfaces/todo.interface';
-import logger from '../../helpers/logger.helper';
-import db from '../db';
 import admin from 'firebase-admin';
+import { readData, writeDataToFile } from '../../helpers/file';
+import db from '../db';
+import { ICreateTodoDto, ITodoDto } from '../interfaces/todo.interface';
 import { mapFirestoreToTodoDto } from '../mappers/todoMapper';
 
 const todosCollection = db.collection('todos');
 
 async function createTodo(reqBody: ICreateTodoDto): Promise<ITodoDto> {
-  // const todos = await readData('databases/todo.json');
-
-  // const todoId = todos.length > 0 ? Math.floor(Math.random() * 1000000) : 1;
-  // const todo = { id: todoId, ...reqBody, isCompleted: false };
-
-  // const data = [todo, ...todos];
-  // await writeDataToFile(data, 'databases/todo.json');
-
   const { text } = reqBody;
 
   const payload = {
@@ -34,19 +25,6 @@ async function createTodo(reqBody: ICreateTodoDto): Promise<ITodoDto> {
 }
 
 async function updateCompletedTodo(todoId: string, isCompleted: boolean): Promise<ITodoDto> {
-  // const todos = await readData('databases/todo.json');
-  // const index = todos.findIndex((t: ITodoDto) => t.id === todoId);
-  // if (index === -1) {
-  //   throw new Error('Todo not found');
-  // }
-  // const updatedTodo = {
-  //   ...todos[index],
-  //   isCompleted
-  // };
-  // todos[index] = updatedTodo;
-  // await writeDataToFile(todos, 'databases/todo.json');
-  // return todos[index];
-
   const todoRef = todosCollection.doc(todoId);
 
   await todoRef.update({
@@ -62,12 +40,6 @@ async function updateCompletedTodo(todoId: string, isCompleted: boolean): Promis
 }
 
 async function deleteTodo(todoId: string) {
-  // const todos = await readData('databases/todo.json');
-
-  // const todo = todos.filter((todo: ITodoDto) => todo.id !== todoId);
-
-  // await writeDataToFile(todo, 'databases/todo.json');
-
   await todosCollection.doc(todoId).delete();
 }
 
