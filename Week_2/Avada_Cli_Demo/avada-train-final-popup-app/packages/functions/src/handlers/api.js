@@ -36,9 +36,9 @@ api.use(
     accessTokenKey: shopifyConfig.accessTokenKey,
     afterLogin: async ctx => {
       await Promise.all([
-        await settingController.createInitSettingAfterLogin(ctx),
-        await notificationController.syncOrdersToNotifications(ctx),
-        await webhookController.createWebhook(ctx)
+        settingController.createInitSettingAfterLogin(ctx),
+        notificationController.syncOrdersToNotifications(ctx),
+        webhookController.createWebhook(ctx)
       ]);
     },
     afterInstall: ctx => {

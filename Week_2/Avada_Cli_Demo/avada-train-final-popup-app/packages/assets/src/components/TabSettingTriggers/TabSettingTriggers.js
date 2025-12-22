@@ -1,7 +1,7 @@
 import {FormLayout, Select} from '@shopify/polaris';
 import React from 'react';
 import FormInputSettingTriggers from '../FormInput/FormInputSettingTriggers';
-import {useSettingFormContext} from '@assets/contexts/SettingFormContext';
+import {useSettingFormContext} from '@assets/contexts/settingFormContext';
 
 const options = [
   {label: 'All Pages', value: 'all-pages'},
@@ -22,7 +22,7 @@ export default function TabSettingTriggers() {
       {settingForm.allowShow === 'specific-pages' && (
         <FormInputSettingTriggers
           label="Included pages"
-          helpText="Page URLs to show the pop-up (separated by new lines)"
+          helpText="Page URLs to show the pop-up (separated commas ',')"
           value={settingForm.includedUrls}
           handleChange={value => updateSetting('includedUrls', value)}
         />
@@ -31,7 +31,7 @@ export default function TabSettingTriggers() {
       <FormInputSettingTriggers
         value={settingForm.excludedUrls}
         label="Excluded pages"
-        helpText="Page URLs NOT to show the pop-up (separated by new lines)"
+        helpText="Page URLs NOT to show the pop-up (separated commas ',')"
         handleChange={value => updateSetting('excludedUrls', value)}
       />
     </FormLayout>

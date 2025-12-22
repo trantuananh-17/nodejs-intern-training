@@ -3,8 +3,10 @@ import PropTypes from 'prop-types';
 
 const defaultSettingForm = {
   position: 'bottom-left',
-  hideTimeAgo: true,
-  truncateProductName: false,
+  hideTimeAgo: false,
+  truncateProductName: true,
+  replayPlaylist: false,
+  continueAfterPageReload: false,
   displayDuration: 0,
   firstDelay: 0,
   popsInterval: 0,

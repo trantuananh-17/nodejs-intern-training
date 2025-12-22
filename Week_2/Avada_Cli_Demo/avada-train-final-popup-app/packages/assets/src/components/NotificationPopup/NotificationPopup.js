@@ -1,17 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './NoticationPopup.scss';
+import {formatTimeAgo} from '@assets/helpers/utils/formatFullTime';
 
 const NotificationPopup = ({
   firstName = 'John Doe',
   city = 'New York',
   country = 'United States',
   productName = 'Puffer Jacket With Hidden Hood',
-  timestamp = 'a day ago',
+  timestamp = '2025-12-17T07:10:49.000Z',
   productImage = 'https://cdn.shopify.com/s/files/1/0974/6405/8168/files/Main_b13ad453-477c-4ed1-9b43-81f3345adfd6_800x800.jpg?v=1765174400',
   settings
 }) => {
   const {hideTimeAgo, truncateProductName} = settings;
+
+  const timeAgo = formatTimeAgo(timestamp);
+
   return (
     <div className="Avava-SP__Wrapper fadeInUp animated">
       <div className="Avava-SP__Inner">
@@ -36,7 +40,7 @@ const NotificationPopup = ({
                 className="Avada-SP__Footer"
                 style={{visibility: hideTimeAgo ? 'hidden' : 'visible'}}
               >
-                {timestamp}
+                {timeAgo}
               </div>
             </div>
           </a>

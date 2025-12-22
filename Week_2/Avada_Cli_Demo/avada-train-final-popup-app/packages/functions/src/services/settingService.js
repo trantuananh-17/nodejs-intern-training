@@ -55,7 +55,9 @@ export async function getSettingByShopIdForClientApi(shopifyDomain) {
     maxPopsDisplay: setting.maxPopsDisplay,
     includedUrls: setting.includedUrls,
     excludedUrls: setting.excludedUrls,
-    allowShow: setting.allowShow
+    allowShow: setting.allowShow,
+    replayPlaylist: setting.replayPlaylist,
+    continueAfterPageReload: setting.continueAfterPageReload
   };
 }
 
@@ -71,6 +73,8 @@ export async function createInitSettingAfterLogin(shopID, shopifyDomain) {
     position: 'bottom-left',
     hideTimeAgo: true,
     truncateProductName: false,
+    replayPlaylist: false,
+    continueAfterPageReload: false,
     displayDuration: 0,
     firstDelay: 0,
     popsInterval: 0,

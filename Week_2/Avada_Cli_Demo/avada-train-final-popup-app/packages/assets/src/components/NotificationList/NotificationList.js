@@ -10,62 +10,16 @@ import React, {useState} from 'react';
 import NotificationPopup from '@assets/components/NotificationPopup/NotificationPopup';
 import PropTypes from 'prop-types';
 import {formatDateOnly} from '../../helpers/utils/formatFullTime';
+import {useSettingFormContext} from '@assets/contexts/settingFormContext';
 
-export default function NotificationList({items}) {
+export default function NotificationList({items, sortValue, setSortValue, setCurrentPage}) {
   const [selectedItems, setSelectedItems] = useState([]);
-  const [sortValue, setSortValue] = useState('DATE_MODIFIED_DESC');
+  const {settingForm} = useSettingFormContext();
 
   const resourceName = {
     singular: 'customer',
     plural: 'customers'
   };
-
-  // const items = [
-  //   {
-  //     id: '1',
-  //     firstName: 'John Doe',
-  //     city: 'New York',
-  //     country: 'United States',
-  //     productName: 'Puffer Jacket With Hidden Hood',
-  //     timestamp: Timestamp.fromDate(new Date()),
-  //     productImage:
-  //       'https://cdn.shopify.com/s/files/1/0974/6405/8168/files/Main_b13ad453-477c-4ed1-9b43-81f3345adfd6_800x800.jpg?v=1765174400'
-  //   },
-  //   {
-  //     id: '2',
-  //     firstName: 'Emily Carter',
-  //     city: 'Los Angeles',
-  //     country: 'United States',
-  //     productName: 'Sport Sneaker Pro X',
-  //     timestamp: Timestamp.fromDate(new Date('2022-11-15')),
-  //     productImage:
-  //       'https://cdn.shopify.com/s/files/1/0974/6405/8168/files/Main_b13ad453-477c-4ed1-9b43-81f3345adfd6_800x800.jpg?v=1765174400'
-  //   },
-  //   {
-  //     id: '3',
-  //     firstName: 'Liam Nguyen',
-  //     city: 'Toronto',
-  //     country: 'Canada',
-  //     productName: 'Vintage Leather Backpack',
-  //     timestamp: Timestamp.fromDate(new Date('2022-11-15')),
-  //     productImage:
-  //       'https://cdn.shopify.com/s/files/1/0974/6405/8168/files/Main_b13ad453-477c-4ed1-9b43-81f3345adfd6_800x800.jpg?v=1765174400'
-  //   }
-  // ];
-
-  // const promotedBulkActions = [
-  //   {
-  //     content: 'Edit customers',
-  //     onAction: () => console.log('Todo: implement bulk edit')
-  //   }
-  // ];
-
-  const bulkActions = [
-    {
-      content: 'Delete notifications',
-      onAction: () => console.log('Todo: implement bulk delete')
-    }
-  ];
 
   return (
     <LegacyCard>
@@ -75,16 +29,14 @@ export default function NotificationList({items}) {
         renderItem={renderItem}
         selectedItems={selectedItems}
         onSelectionChange={setSelectedItems}
-        // promotedBulkActions={promotedBulkActions}
-        bulkActions={bulkActions}
         sortValue={sortValue}
         sortOptions={[
           {label: 'Newest update', value: 'DATE_MODIFIED_DESC'},
           {label: 'Oldest update', value: 'DATE_MODIFIED_ASC'}
         ]}
-        onSortChange={selected => {
-          setSortValue(selected);
-          console.log(`Sort option changed to ${selected}.`);
+        onSortChange={value => {
+          setSortValue(value);
+          setCurrentPage(1); // reset pagination khi sort
         }}
       />
     </LegacyCard>
@@ -92,18 +44,11 @@ export default function NotificationList({items}) {
 
   function renderItem(item) {
     const {id, firstName, city, country, productName, timestamp, productImage} = item;
-    // const media = <NotificationCard />;
     const formattedDate = formatDateOnly(timestamp);
-
     const [monthDay, year] = formattedDate.split(',');
 
     return (
-      <ResourceItem
-        id={id}
-        // media={media}
-        accessibilityLabel={`View details for ${name}`}
-        persistActions
-      >
+      <ResourceItem id={id} persistActions>
         <InlineStack align="space-between" blockAlign="center">
           <NotificationPopup
             firstName={firstName}
@@ -112,12 +57,13 @@ export default function NotificationList({items}) {
             productName={productName}
             timestamp={timestamp}
             productImage={productImage}
+            settings={settingForm}
           />
-          <BlockStack align="end" inlineAlign="end">
-            <Text as="p" fontWeight="regular" variant="bodySm">
+          <BlockStack align="end">
+            <Text as="p" variant="bodySm">
               From {monthDay},
             </Text>
-            <Text as="p" fontWeight="regular" variant="bodySm">
+            <Text as="p" variant="bodySm">
               {year}
             </Text>
           </BlockStack>
@@ -128,5 +74,8 @@ export default function NotificationList({items}) {
 }
 
 NotificationList.propTypes = {
-  items: PropTypes.object
+  items: PropTypes.object,
+  sortValue: PropTypes.string,
+  setSortValue: PropTypes.func,
+  setCurrentPage: PropTypes.func
 };

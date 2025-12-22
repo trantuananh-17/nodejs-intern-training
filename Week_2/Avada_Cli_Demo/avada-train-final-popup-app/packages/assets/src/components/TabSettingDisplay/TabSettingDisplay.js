@@ -31,6 +31,24 @@ export default function TabSettingDisplay() {
         }
       />
 
+      <Checkbox
+        label="Replay playlist"
+        onChange={value => updateSetting('replayPlaylist', value)}
+        checked={settingForm.replayPlaylist}
+        helpText={
+          'If enabled, the playlist will be replayed when all items have all been displayed.'
+        }
+      />
+
+      <Checkbox
+        label="Continue after page reload"
+        onChange={value => updateSetting('continueAfterPageReload', value)}
+        checked={settingForm.continueAfterPageReload}
+        helpText={
+          'If enabled, after the page is reloaded, the next popup is displayed. If not, the list will be replayed from the start.'
+        }
+      />
+
       {/* Range Slider */}
       <Text as="h2" fontWeight="medium" variant="headingMd">
         TIMING

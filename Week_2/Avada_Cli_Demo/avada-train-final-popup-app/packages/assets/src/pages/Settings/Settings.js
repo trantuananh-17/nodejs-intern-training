@@ -1,5 +1,17 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {Button, Layout, LegacyCard, Page, Spinner, Tabs} from '@shopify/polaris';
+import {
+  BlockStack,
+  Box,
+  Button,
+  Card,
+  InlineGrid,
+  InlineStack,
+  Layout,
+  LegacyCard,
+  Page,
+  Tabs,
+  Text
+} from '@shopify/polaris';
 import NotificationPopup from '@assets/components/NotificationPopup/NotificationPopup';
 import '@assets/styles/pages/setting.scss';
 import TabSettingDisplay from '@assets/components/TabSettingDisplay/TabSettingDisplay';
@@ -8,6 +20,8 @@ import {useSettingFormContext} from '@assets/contexts/settingFormContext';
 import useFetchApi from '@assets/hooks/api/useFetchApi';
 import useEditApi from '../../hooks/api/useEditApi';
 import {SettingSkeleton} from '../../components/Skeletons/SettingSkeleton/SettingSkeleton';
+import {ViewIcon} from '@shopify/polaris-icons';
+import PreviewNotificationModal from '@assets/components/PreviewNotificationModal/PreviewNotificationModal';
 
 const tabs = [
   {
@@ -31,15 +45,20 @@ const tabs = [
 export default function Settings() {
   const [selected, setSelected] = useState(0);
   const [editLoading, setEditLoading] = useState(false);
+  const [active, setActive] = useState(false);
 
   const {settingForm, setSettingForm} = useSettingFormContext();
 
-  const {loading, data: input, setData: setInput, setLoading, fetched} = useFetchApi({
+  const {loading, data: input, setData: setInput, fetched} = useFetchApi({
     url: '/settings',
     defaultData: null
   });
 
+  // Chuyển tab setting
   const handleTabChange = useCallback(selectedTabIndex => setSelected(selectedTabIndex), []);
+
+  // Mở preview
+  const handleChange = useCallback(() => setActive(!active), [active]);
 
   const {handleEdit} = useEditApi({
     url: '/settings'
@@ -72,45 +91,65 @@ export default function Settings() {
       title="Settings"
       subtitle="Decide how your notifications will display"
       primaryAction={
-        <Button variant="primary" size="medium" onClick={handleSave} disabled={editLoading}>
+        <Button
+          variant="primary"
+          size="medium"
+          onClick={handleSave}
+          disabled={editLoading}
+          loading={loading || editLoading}
+        >
           <span style={{visibility: editLoading ? 'hidden' : 'visible'}}>Save</span>
-
-          {editLoading && (
-            <span
-              style={{
-                position: 'absolute',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                inset: 0
-              }}
-            >
-              <Spinner accessibilityLabel="Saving" size="small" />
-            </span>
-          )}
         </Button>
       }
     >
-      <Layout>
-        <Layout.Section variant="oneThird">
-          <NotificationPopup settings={settingForm} />
-        </Layout.Section>
-        <Layout.Section>
-          <LegacyCard>
-            <div className="Avada_SP_tabs">
-              {!fetched && <SettingSkeleton />}
-              {fetched && input && (
-                <Tabs tabs={tabs} selected={selected} onSelect={handleTabChange}>
-                  <LegacyCard.Section title={tabs[selected].title}>
-                    {selected === 0 && <TabSettingDisplay />}
-                    {selected === 1 && <TabSettingTriggers />}
-                  </LegacyCard.Section>
-                </Tabs>
-              )}
-            </div>
-          </LegacyCard>
-        </Layout.Section>
-      </Layout>
+      <Box paddingBlockEnd={600}>
+        <Layout>
+          <Layout.Section variant="oneThird">
+            <Card roundedAbove="sm">
+              <BlockStack gap="200">
+                <InlineGrid columns="1fr auto">
+                  <Text as="h2" variant="headingSm">
+                    Preview
+                  </Text>
+                  <Button
+                    onClick={handleChange}
+                    accessibilityLabel="Open Preview"
+                    icon={ViewIcon}
+                    loading={loading}
+                  />
+                </InlineGrid>
+                <InlineStack blockAlign="center">
+                  {fetched && input && <NotificationPopup settings={settingForm} />}
+                </InlineStack>
+              </BlockStack>
+            </Card>
+          </Layout.Section>
+
+          <Layout.Section>
+            <LegacyCard>
+              <div className="Avada_SP_tabs">
+                {!fetched && <SettingSkeleton />}
+                {fetched && input && (
+                  <Tabs tabs={tabs} selected={selected} onSelect={handleTabChange}>
+                    <LegacyCard.Section title={tabs[selected].title}>
+                      {selected === 0 && <TabSettingDisplay />}
+                      {selected === 1 && <TabSettingTriggers />}
+                    </LegacyCard.Section>
+                  </Tabs>
+                )}
+              </div>
+            </LegacyCard>
+          </Layout.Section>
+        </Layout>
+      </Box>
+
+      {active && (
+        <PreviewNotificationModal
+          active={active}
+          handleChange={handleChange}
+          settings={settingForm}
+        />
+      )}
     </Page>
   );
 }

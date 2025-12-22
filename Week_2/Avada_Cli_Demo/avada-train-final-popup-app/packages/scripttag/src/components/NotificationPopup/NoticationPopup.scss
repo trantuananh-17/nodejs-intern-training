@@ -78,7 +78,7 @@
 .Avava-SP__Wrapper .Avada-SP__Content .Avada-SP__Subtitle {
   margin-bottom: 0;
   font-size: 10px;
-  //font-weight: bold;
+  font-weight: bold;
   //color: #8b93a8;
 }
 .Avava-SP__Wrapper .Avada-SP__Content .Avada-SP__Footer {
@@ -148,6 +148,13 @@
   transform: translateX(0);
 }
 
-.hide-time-ago .Avada-SP__TimeAgo {
+.Avada-SP__HideTimeAgo .Avada-SP__TimeAgo {
   display: none !important;
+}
+
+.Avada-SP__Subtitle__Truncate .Avada-SP__Subtitle,
+.Avada-SP__Title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

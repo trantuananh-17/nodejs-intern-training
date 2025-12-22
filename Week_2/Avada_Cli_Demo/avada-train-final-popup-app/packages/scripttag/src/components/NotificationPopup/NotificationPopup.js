@@ -26,12 +26,9 @@ const NotificationPopup = ({
               <div className={'Avada-SP__Title'}>
                 {firstName} in {city}, {country}
               </div>
-              <div className={'Avada-SP__Subtitle'}>purchased {productName}</div>
+              <div className={`Avada-SP__Subtitle`}>Purchased {productName}</div>
               <div className={'Avada-SP__Footer'}>
-                <span className={'Avada-SP__TimeAgo'}>{formatTimeAgo(timestamp)} </span>
-                <span className="uni-blue">
-                  <i className="fa fa-check" aria-hidden="true" /> by Avada
-                </span>
+                <span className={`Avada-SP__TimeAgo`}>{formatTimeAgo(timestamp)} </span>
               </div>
             </div>
           </a>
@@ -47,7 +44,9 @@ NotificationPopup.propTypes = {
   country: PropTypes.string,
   productName: PropTypes.string,
   timestamp: PropTypes.string,
-  productImage: PropTypes.string
+  productImage: PropTypes.string,
+  truncateProductName: PropTypes.bool,
+  hideTimeAgo: PropTypes.bool
 };
 
 export default NotificationPopup;
