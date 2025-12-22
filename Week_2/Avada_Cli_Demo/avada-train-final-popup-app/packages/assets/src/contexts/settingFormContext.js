@@ -12,7 +12,8 @@ const defaultSettingForm = {
   allowShow: 'all-pages',
   includedUrls: '',
   excludedUrls: '',
-  shopId: ''
+  shopId: '',
+  shopifyDomain: ''
 };
 
 const SettingFormContext = createContext({

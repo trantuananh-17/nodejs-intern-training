@@ -1,6 +1,5 @@
-import {getCurrentUserInstance} from '@functions/helpers/auth';
+import {getCurrentShopData, getCurrentUserInstance} from '@functions/helpers/auth';
 import * as settingService from '@functions/services/settingService';
-import {getCurrentShop} from '../helpers/auth';
 
 /**
  * Lấy app setting
@@ -57,9 +56,9 @@ export async function updateOne(ctx) {
  */
 export async function createInitSettingAfterLogin(ctx) {
   try {
-    const shopID = getCurrentShop(ctx);
+    const shopData = getCurrentShopData(ctx);
 
-    await settingService.createInitSettingAfterLogin(shopID);
+    await settingService.createInitSettingAfterLogin(shopData.id, shopData.shopifyDomain);
   } catch (e) {
     console.error(e);
     return (ctx.body = {

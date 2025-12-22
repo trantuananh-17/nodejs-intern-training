@@ -72,13 +72,7 @@ export default function Settings() {
       title="Settings"
       subtitle="Decide how your notifications will display"
       primaryAction={
-        <Button
-          tone="success"
-          variant="primary"
-          size="medium"
-          onClick={handleSave}
-          disabled={editLoading}
-        >
+        <Button variant="primary" size="medium" onClick={handleSave} disabled={editLoading}>
           <span style={{visibility: editLoading ? 'hidden' : 'visible'}}>Save</span>
 
           {editLoading && (
@@ -99,7 +93,7 @@ export default function Settings() {
     >
       <Layout>
         <Layout.Section variant="oneThird">
-          <NotificationPopup />
+          <NotificationPopup settings={settingForm} />
         </Layout.Section>
         <Layout.Section>
           <LegacyCard>

@@ -1,6 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import './NoticationPopup.scss';
+import {formatTimeAgo} from '../../helpers/formatTime';
+import PropTypes from 'prop-types';
 
 const NotificationPopup = ({
   firstName = 'John Doe',
@@ -8,10 +9,8 @@ const NotificationPopup = ({
   country = 'United States',
   productName = 'Puffer Jacket With Hidden Hood',
   timestamp = 'a day ago',
-  productImage = 'https://cdn.shopify.com/s/files/1/0974/6405/8168/files/Main_b13ad453-477c-4ed1-9b43-81f3345adfd6_800x800.jpg?v=1765174400',
-  settings
+  productImage = 'http://paris.mageplaza.com/images/shop/single/big-1.jpg'
 }) => {
-  const {hideTimeAgo, truncateProductName} = settings;
   return (
     <div className="Avava-SP__Wrapper fadeInUp animated">
       <div className="Avava-SP__Inner">
@@ -22,21 +21,17 @@ const NotificationPopup = ({
               style={{
                 backgroundImage: `url(${productImage})`
               }}
-            ></div>
+            />
             <div className="Avada-SP__Content">
               <div className={'Avada-SP__Title'}>
                 {firstName} in {city}, {country}
               </div>
-              <div
-                className={`Avada-SP__Subtitle ${truncateProductName ? 'subtitle-truncate' : ''}`}
-              >
-                Purchased {productName}
-              </div>
-              <div
-                className="Avada-SP__Footer"
-                style={{visibility: hideTimeAgo ? 'hidden' : 'visible'}}
-              >
-                {timestamp}
+              <div className={'Avada-SP__Subtitle'}>purchased {productName}</div>
+              <div className={'Avada-SP__Footer'}>
+                <span className={'Avada-SP__TimeAgo'}>{formatTimeAgo(timestamp)} </span>
+                <span className="uni-blue">
+                  <i className="fa fa-check" aria-hidden="true" /> by Avada
+                </span>
               </div>
             </div>
           </a>
@@ -52,8 +47,7 @@ NotificationPopup.propTypes = {
   country: PropTypes.string,
   productName: PropTypes.string,
   timestamp: PropTypes.string,
-  productImage: PropTypes.string,
-  settings: PropTypes.object
+  productImage: PropTypes.string
 };
 
 export default NotificationPopup;

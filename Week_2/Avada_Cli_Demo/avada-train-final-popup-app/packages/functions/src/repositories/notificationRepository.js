@@ -21,7 +21,11 @@ export async function getNotifications(id, domain) {
 }
 
 export async function getNotificationsByShopyfiDomain(domain) {
-  const snapshot = await notificationRef.where('shopifyDomain', '==', domain).get();
+  const snapshot = await notificationRef
+    .where('shopifyDomain', '==', domain)
+    .orderBy('timestamp', 'desc')
+    .limit(30)
+    .get();
 
   return snapshot.docs.map(doc => presentDataAndFormatDate(doc));
 }

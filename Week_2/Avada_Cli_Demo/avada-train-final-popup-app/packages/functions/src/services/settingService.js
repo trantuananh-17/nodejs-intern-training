@@ -1,7 +1,7 @@
 import * as settingRepository from '@functions/repositories/settingRepository';
 
-export async function createSetting(shopID, data) {
-  return await settingRepository.createSetting(shopID, data);
+export async function createSetting(shopID, shopifyDomain, data) {
+  return await settingRepository.createSetting(shopID, shopifyDomain, data);
 }
 
 export async function updateSetting(shopID, data) {
@@ -22,14 +22,28 @@ export async function getSettingByShopId(shopID) {
 
   return setting;
 }
+
+/**
+ *
+ * @param {*} shopID
+ * @returns {Promise<setting>}
+ */
+export async function getSettingByShopifyDomain(shopifyDomain) {
+  const setting = await settingRepository.getSettingByShopifyDomain(shopifyDomain);
+
+  if (!setting) throw new Error('Setting Not Found:', setting);
+
+  return setting;
+}
+
 /**
  * Hàm này sẽ loại bỏ các dữ liệu: created at, updated at, shopID
  *
- * @param {*} shopId
+ * @param {*} shopifyDomain
  * @returns {Promise<setting>}
  */
-export async function getSettingByShopIdForClientApi(shopId) {
-  const setting = await getSettingByShopId(shopId);
+export async function getSettingByShopIdForClientApi(shopifyDomain) {
+  const setting = await getSettingByShopifyDomain(shopifyDomain);
 
   return {
     position: setting.position,
@@ -50,7 +64,7 @@ export async function getSettingByShopIdForClientApi(shopId) {
  * @param {*} shopID
  * @returns {Promise<void>}
  */
-export async function createInitSettingAfterLogin(shopID) {
+export async function createInitSettingAfterLogin(shopID, shopifyDomain) {
   const setting = await settingRepository.getSettingByShopId(shopID);
 
   const defaultSettingForm = {
@@ -64,10 +78,11 @@ export async function createInitSettingAfterLogin(shopID) {
     allowShow: 'all-pages',
     includedUrls: '',
     excludedUrls: '',
-    shopId: ''
+    shopId: '',
+    shopifyDomain: ''
   };
 
   if (!setting) {
-    createSetting(shopID, defaultSettingForm);
+    createSetting(shopID, shopifyDomain, defaultSettingForm);
   }
 }

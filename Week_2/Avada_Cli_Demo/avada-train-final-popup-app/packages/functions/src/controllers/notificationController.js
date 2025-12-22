@@ -59,22 +59,15 @@ export async function getNotificationsAndSetting(ctx) {
   try {
     const shopifyDomain = ctx.query.shopifyDomain;
 
-    console.log('shopifyDomain', shopifyDomain);
-
-    const shopData = await shopService.getShopByShopifyDomain(shopifyDomain);
-
-    const [notifications, setting] = await Promise.all([
+    const [notifications, settings] = await Promise.all([
       await notificationService.getNotificationsByShopifyDomain(shopifyDomain),
-      await settingService.getSettingByShopIdForClientApi(shopData.id)
+      await settingService.getSettingByShopIdForClientApi(shopifyDomain)
     ]);
 
     ctx.status = 200;
     ctx.body = {
-      success: true,
-      data: {
-        notifications,
-        setting
-      }
+      notifications,
+      settings
     };
   } catch (e) {
     console.error(e);
