@@ -59,7 +59,7 @@ export default function ThemeColorInput({label, colorHex, onChange}) {
         active={active}
         activator={
           <div className="Avada-ReactColor" onClick={() => setActive(true)}>
-            <div className="Avada-ColorBlock" style={{background: hex}} />
+            <div className="Avada-ColorBlock" style={{backgroundColor: `${hex}`}} />
           </div>
         }
         onClose={() => setActive(false)}
@@ -72,7 +72,13 @@ export default function ThemeColorInput({label, colorHex, onChange}) {
 
                 <Divider />
 
-                <ThemeColorSelect />
+                <ThemeColorSelect
+                  onSelect={value => {
+                    setColor(hexToHsba(value)); // sync local ngay
+                    onChange(value); // update context
+                  }}
+                  hex={colorHex}
+                />
               </BlockStack>
             </Box>
           </Popover.Pane>
@@ -82,7 +88,7 @@ export default function ThemeColorInput({label, colorHex, onChange}) {
       <Box minWidth="120px">
         <BlockStack gap="100">
           <Text>{label}</Text>
-          <Text tone="subdued">{hex}</Text>
+          <Text tone="subdued">{colorHex}</Text>
         </BlockStack>
       </Box>
     </InlineStack>
@@ -92,5 +98,5 @@ export default function ThemeColorInput({label, colorHex, onChange}) {
 ThemeColorInput.propTypes = {
   label: PropTypes.string,
   colorHex: PropTypes.string,
-  onChange: PropTypes.func
+  onChange: PropTypes.func.isRequired
 };

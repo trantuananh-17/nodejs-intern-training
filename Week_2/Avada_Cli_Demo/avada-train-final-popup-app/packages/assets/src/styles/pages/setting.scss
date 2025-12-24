@@ -67,9 +67,3 @@
 .Polaris-Checkbox__Input.Polaris-Checkbox__Input--indeterminate ~ .Polaris-Checkbox__Icon svg {
   fill: var(--p-color-bg-fill-magic);
 }
-
-.preview-sticky {
-  position: sticky;
-  top: -10px;
-  z-index: 10;
-}

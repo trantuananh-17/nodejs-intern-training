@@ -60,8 +60,6 @@ export default function Notifications() {
   };
 
   const handleDeleteNotifications = async ids => {
-    console.log(ids);
-
     await handleDelete({data: {ids}});
   };
 

@@ -17,21 +17,15 @@ const FullscreenPageA = React.lazy(() => import('../pages/FullscreenPageA'));
 const Routes = ({prefix = routePrefix}) => (
   <Suspense fallback={<Loading />}>
     <Switch>
-      <Route exact path={prefix + '/'} render={props => <Home {...props} />} />
-      <Route
-        exact
-        path={prefix + '/settings'}
-        render={props => (
-          <SettingFormProvider>
-            <Settings {...props} />
-          </SettingFormProvider>
-        )}
-      />
-      <Route
-        exact
-        path={prefix + '/notifications'}
-        render={props => <Notifications {...props} />}
-      />
+      <SettingFormProvider>
+        <Route exact path={prefix + '/'} render={props => <Home {...props} />} />
+        <Route exact path={prefix + '/settings'} render={props => <Settings {...props} />} />
+        <Route
+          exact
+          path={prefix + '/notifications'}
+          render={props => <Notifications {...props} />}
+        />
+      </SettingFormProvider>
       <Route exact path={prefix + '/samples'} component={Samples} />
       <Route exact path={prefix + '/fullscreen-page-a'} component={FullscreenPageA} />
       <Route exact path={prefix + '/optional-scopes'} component={OptionalScopes} />

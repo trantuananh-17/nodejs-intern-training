@@ -57,7 +57,19 @@ export async function getSettingByShopIdForClientApi(shopifyDomain) {
     excludedUrls: setting.excludedUrls,
     allowShow: setting.allowShow,
     replayPlaylist: setting.replayPlaylist,
-    continueAfterPageReload: setting.continueAfterPageReload
+    continueAfterPageReload: setting.continueAfterPageReload,
+    isGradient: setting.isGradient,
+    backgroundImage: setting.backgroundImage,
+    actionColorStart: setting.actionColorStart,
+    actionColorEnd: setting.actionColorEnd,
+    backgroundColor: setting.backgroundColor,
+    themeName: setting.themeName,
+    headingColor: setting.headingColor,
+    headerTextColor: setting.headerTextColor,
+    timeColor: setting.timeColor,
+    theme: setting.theme,
+    textColor: setting.textColor,
+    hideBackgroundSelect: setting.hideBackgroundSelect
   };
 }
 
@@ -83,7 +95,19 @@ export async function createInitSettingAfterLogin(shopID, shopifyDomain) {
     includedUrls: '',
     excludedUrls: '',
     shopId: '',
-    shopifyDomain: ''
+    shopifyDomain: '',
+    isGradient: true,
+    backgroundImage: '',
+    actionColorStart: '#EEEEEEFF',
+    actionColorEnd: '#FFFFFFFF',
+    backgroundColor: '#FFFFFFFF',
+    themeName: 'Basic',
+    headingColor: '#000000FF',
+    headerTextColor: '#18A5A7FF',
+    timeColor: '#000000FF',
+    theme: 'sp-basic',
+    textColor: '#000000FF',
+    hideBackgroundSelect: false
   };
 
   if (!setting) {

@@ -116,11 +116,11 @@ export default function Settings() {
     >
       <Box paddingBlockEnd={600}>
         <Layout>
-          <div className="preview-sticky">
-            <Layout.Section variant="oneThird">
-              <Card roundedAbove="sm">
-                <Box minHeight="150px">
-                  <BlockStack gap="500">
+          <Layout.Section variant="oneThird">
+            <Card roundedAbove="sm">
+              <Box minHeight="180px">
+                <div className="preview-sticky">
+                  <BlockStack gap="800">
                     <InlineGrid columns="1fr auto">
                       <Text as="h2" variant="headingSm">
                         Preview
@@ -136,10 +136,10 @@ export default function Settings() {
                       {fetched && input && <NotificationPopup settings={settingForm} />}
                     </InlineStack>
                   </BlockStack>
-                </Box>
-              </Card>
-            </Layout.Section>
-          </div>
+                </div>
+              </Box>
+            </Card>
+          </Layout.Section>
 
           <Layout.Section>
             <LegacyCard>

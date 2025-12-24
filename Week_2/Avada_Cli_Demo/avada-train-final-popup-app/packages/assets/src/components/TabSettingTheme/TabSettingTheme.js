@@ -68,7 +68,13 @@ export default function TabSettingTheme() {
               </InlineGrid>
             )}
 
-            {!settingForm.isGradient && <ThemeColorInput label="Background color" />}
+            {!settingForm.isGradient && (
+              <ThemeColorInput
+                label="Background color"
+                colorHex={settingForm.backgroundColor}
+                onChange={value => updateSetting('backgroundColor', value)}
+              />
+            )}
           </>
         )}
 
