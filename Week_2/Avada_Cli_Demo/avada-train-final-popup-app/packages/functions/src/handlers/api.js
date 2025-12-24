@@ -35,11 +35,15 @@ api.use(
     optionalScopes: shopifyOptionalScopes,
     accessTokenKey: shopifyConfig.accessTokenKey,
     afterLogin: async ctx => {
-      await Promise.all([
-        settingController.createInitSettingAfterLogin(ctx),
-        notificationController.syncOrdersToNotifications(ctx),
-        webhookController.createWebhook(ctx)
-      ]);
+      try {
+        await Promise.all([
+          settingController.createInitSettingAfterLogin(ctx),
+          notificationController.syncOrdersToNotifications(ctx),
+          webhookController.createWebhook(ctx)
+        ]);
+      } catch (error) {
+        console.log(error);
+      }
     },
     afterInstall: ctx => {
       console.log('install app');

@@ -24,6 +24,8 @@ export default function apiRouter(isEmbed = false) {
   router.put('/settings', settingController.updateOne);
 
   router.get('/notifications', notificationController.getNotifications);
+  router.post('/notifications', notificationController.syncManualOrdersToNotifications);
+  router.delete('/notifications', notificationController.deleteNotificationByIds);
 
   return router;
 }

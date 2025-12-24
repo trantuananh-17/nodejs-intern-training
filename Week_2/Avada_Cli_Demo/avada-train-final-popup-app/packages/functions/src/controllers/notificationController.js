@@ -1,5 +1,4 @@
 import * as notificationService from '@functions/services/notificationService';
-import * as shopService from '@functions/services/shopService';
 import * as settingService from '@functions/services/settingService';
 import {getCurrentShopData} from '@functions/helpers/auth';
 
@@ -12,11 +11,32 @@ export async function syncOrdersToNotifications(ctx) {
   try {
     const shopData = getCurrentShopData(ctx);
 
-    const data = await notificationService.syncOrdersToNotification(shopData);
-
-    console.log(data);
+    await notificationService.syncOrdersToNotification(shopData);
   } catch (e) {
     console.error(e);
+    return (ctx.body = {
+      success: false
+    });
+  }
+}
+
+/**
+ *
+ * @param {*} ctx
+ * @returns
+ */
+export async function syncManualOrdersToNotifications(ctx) {
+  try {
+    const shopData = getCurrentShopData(ctx);
+
+    const response = await notificationService.syncManualOrdersToNotifications(shopData);
+    ctx.status = 200;
+    ctx.body = {
+      success: true,
+      data: response
+    };
+  } catch (error) {
+    console.error(error);
     return (ctx.body = {
       success: false
     });
@@ -31,8 +51,6 @@ export async function syncOrdersToNotifications(ctx) {
 export async function getNotifications(ctx) {
   try {
     const shopData = getCurrentShopData(ctx);
-
-    console.log(shopData);
 
     const data = await notificationService.getNotifications(shopData.id, shopData.shopifyDomain);
 
@@ -68,6 +86,32 @@ export async function getNotificationsAndSetting(ctx) {
     ctx.body = {
       notifications,
       settings
+    };
+  } catch (e) {
+    console.error(e);
+    return (ctx.body = {
+      success: false
+    });
+  }
+}
+
+export async function deleteNotificationByIds(ctx) {
+  try {
+    const shopData = getCurrentShopData(ctx);
+
+    const {ids} = ctx.req.body;
+
+    console.log('ids:', ids);
+
+    const notifications = await notificationService.deleteNotificationsByIds(
+      ids,
+      shopData.id,
+      shopData.shopifyDomain
+    );
+    ctx.status = 200;
+    ctx.body = {
+      success: true,
+      data: notifications
     };
   } catch (e) {
     console.error(e);

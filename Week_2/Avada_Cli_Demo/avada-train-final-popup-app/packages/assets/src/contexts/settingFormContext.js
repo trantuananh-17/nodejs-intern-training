@@ -15,12 +15,26 @@ const defaultSettingForm = {
   includedUrls: '',
   excludedUrls: '',
   shopId: '',
-  shopifyDomain: ''
+  shopifyDomain: '',
+  label: 'Basic',
+  isGradient: true,
+  backgroundImage: '',
+  actionColorStart: '#EEEEEE',
+  actionColorEnd: '#FFFFFF',
+  backgroundColor: '#FFFFFF',
+  themeName: 'Basic',
+  headingColor: '#000000',
+  headerTextColor: '#18A5A7',
+  timeColor: '#000000',
+  theme: 'sp-basic',
+  textColor: '#000000',
+  hideBackgroundSelect: false
 };
 
 const SettingFormContext = createContext({
   settingForm: defaultSettingForm,
-  updateSetting: () => {}
+  updateSetting: () => {},
+  updateSettings: () => {}
 });
 
 export const SettingFormProvider = ({children}) => {
@@ -33,12 +47,20 @@ export const SettingFormProvider = ({children}) => {
     }));
   };
 
+  const updateSettings = payload => {
+    setSettingForm(prev => ({
+      ...prev,
+      ...payload
+    }));
+  };
+
   return (
     <SettingFormContext.Provider
       value={{
         settingForm,
         setSettingForm,
-        updateSetting
+        updateSetting,
+        updateSettings
       }}
     >
       {children}

@@ -27,6 +27,22 @@ export async function syncOrdersToNotification(shopData) {
   await shopRepository.updateCheckSync(shopData.id);
 }
 
+export async function syncManualOrdersToNotifications(shopData) {
+  await notificationRepository.deleteNotificationsByShopifyDomain(shopData.shopifyDomain);
+
+  const orders = await orderService.getLatestOrders(shopData);
+
+  console.log(orders);
+
+  const notifications = await notificationRepository.createNotifications(
+    orders,
+    shopData.id,
+    shopData.shopifyDomain
+  );
+
+  return notifications;
+}
+
 /**
  *
  * @param {*} shopId
@@ -48,7 +64,6 @@ export async function getNotifications(shopId, shopifyDomain) {
 }
 
 /**
- *
  * @param {*} shopData
  * @param {*} orderData
  * @returns {Promise<{
@@ -97,6 +112,14 @@ export async function getNotificationsByShopifyDomain(shopifyDomain) {
   const data = await notificationRepository.getNotificationsByShopyfiDomain(shopifyDomain);
 
   const notifications = data.map(({shopId, shopifyDomain, ...rest}) => rest);
+
+  return notifications;
+}
+
+export async function deleteNotificationsByIds(ids, shopId, shopifyDomain) {
+  await notificationRepository.deleteNotificationByIds(ids);
+
+  const notifications = await notificationRepository.getNotifications(shopId, shopifyDomain);
 
   return notifications;
 }

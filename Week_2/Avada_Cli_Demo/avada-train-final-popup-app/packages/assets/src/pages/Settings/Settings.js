@@ -22,21 +22,23 @@ import useEditApi from '../../hooks/api/useEditApi';
 import {SettingSkeleton} from '../../components/Skeletons/SettingSkeleton/SettingSkeleton';
 import {ViewIcon} from '@shopify/polaris-icons';
 import PreviewNotificationModal from '@assets/components/PreviewNotificationModal/PreviewNotificationModal';
+import TabSettingTheme from '@assets/components/TabSettingTheme/TabSettingTheme';
 
 const tabs = [
   {
     id: 'display-setting-notification-1',
     content: 'Display',
-    title: 'APPEARENCE',
-    accessibilityLabel: 'APPEARENCE',
     panelID: 'display-setting-notification-1'
   },
   {
     id: 'trigger-notification-1',
     content: 'Triggers',
-    title: 'PAGES RESTRICTION',
-    accessibilityLabel: 'PAGES RESTRICTION',
     panelID: 'trigger-notification-1'
+  },
+  {
+    id: 'theme-notification-1',
+    content: 'Theme',
+    panelID: 'thme-notification-1'
   }
 ];
 /**
@@ -46,6 +48,7 @@ export default function Settings() {
   const [selected, setSelected] = useState(0);
   const [editLoading, setEditLoading] = useState(false);
   const [active, setActive] = useState(false);
+  const [errors, setErrors] = useState({});
 
   const {settingForm, setSettingForm} = useSettingFormContext();
 
@@ -66,8 +69,17 @@ export default function Settings() {
 
   const handleSave = async () => {
     setEditLoading(true);
+
+    const validationErrors = validateSettings(settingForm);
+    setErrors(validationErrors);
+
+    if (Object.keys(validationErrors).length > 0) {
+      setEditLoading(false);
+
+      return;
+    }
+
     const newSettingForm = await handleEdit(settingForm);
-    console.log(newSettingForm);
 
     setInput(newSettingForm);
     if (newSettingForm) {
@@ -104,26 +116,30 @@ export default function Settings() {
     >
       <Box paddingBlockEnd={600}>
         <Layout>
-          <Layout.Section variant="oneThird">
-            <Card roundedAbove="sm">
-              <BlockStack gap="200">
-                <InlineGrid columns="1fr auto">
-                  <Text as="h2" variant="headingSm">
-                    Preview
-                  </Text>
-                  <Button
-                    onClick={handleChange}
-                    accessibilityLabel="Open Preview"
-                    icon={ViewIcon}
-                    loading={loading}
-                  />
-                </InlineGrid>
-                <InlineStack blockAlign="center">
-                  {fetched && input && <NotificationPopup settings={settingForm} />}
-                </InlineStack>
-              </BlockStack>
-            </Card>
-          </Layout.Section>
+          <div className="preview-sticky">
+            <Layout.Section variant="oneThird">
+              <Card roundedAbove="sm">
+                <Box minHeight="150px">
+                  <BlockStack gap="500">
+                    <InlineGrid columns="1fr auto">
+                      <Text as="h2" variant="headingSm">
+                        Preview
+                      </Text>
+                      <Button
+                        onClick={handleChange}
+                        accessibilityLabel="Open Preview"
+                        icon={ViewIcon}
+                        loading={loading}
+                      />
+                    </InlineGrid>
+                    <InlineStack blockAlign="center">
+                      {fetched && input && <NotificationPopup settings={settingForm} />}
+                    </InlineStack>
+                  </BlockStack>
+                </Box>
+              </Card>
+            </Layout.Section>
+          </div>
 
           <Layout.Section>
             <LegacyCard>
@@ -132,8 +148,9 @@ export default function Settings() {
                 {fetched && input && (
                   <Tabs tabs={tabs} selected={selected} onSelect={handleTabChange}>
                     <LegacyCard.Section title={tabs[selected].title}>
-                      {selected === 0 && <TabSettingDisplay />}
+                      {selected === 0 && <TabSettingDisplay errors={errors} />}
                       {selected === 1 && <TabSettingTriggers />}
+                      {selected === 2 && <TabSettingTheme />}
                     </LegacyCard.Section>
                   </Tabs>
                 )}
@@ -153,5 +170,27 @@ export default function Settings() {
     </Page>
   );
 }
+
+const validateSettings = settings => {
+  const errors = {};
+
+  if (settings.firstDelay < 0 || settings.firstDelay > 80) {
+    errors.firstDelay = 'The value is invalid';
+  }
+
+  if (settings.displayDuration < 0 || settings.displayDuration > 80) {
+    errors.displayDuration = 'The value is invalid';
+  }
+
+  if (settings.maxPopsDisplay < 0 || settings.maxPopsDisplay > 80) {
+    errors.maxPopsDisplay = 'The value is invalid';
+  }
+
+  if (settings.popsInterval < 0 || settings.popsInterval > 80) {
+    errors.popsInterval = 'The value is invalid';
+  }
+
+  return errors;
+};
 
 Settings.propTypes = {};

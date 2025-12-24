@@ -16,14 +16,12 @@ export default class DisplayManager {
     this.settings = settings;
     this.insertContainer();
 
-    // hiển thị tất cả trừ exclude
     if (this.settings.allowShow === 'all-pages') {
       if (this.isExcluded(this.settings.excludedUrls)) {
         return;
       }
     }
 
-    // chỉ hiển thị ở include URLs
     if (this.settings.allowShow === 'specific-pages') {
       if (!this.isIncluded(this.settings.includedUrls)) {
         return;
@@ -35,7 +33,6 @@ export default class DisplayManager {
 
     await this.sleep(this.settings.firstDelay);
 
-    // Hiển thị notifications
     let index = 0;
 
     if (this.settings.continueAfterPageReload) {
@@ -69,7 +66,6 @@ export default class DisplayManager {
     }
   }
 
-  // Xóa content trong #avada-salepop
   async fadeOut() {
     const container = document.querySelector('#Avada-SalePop');
 
@@ -77,7 +73,6 @@ export default class DisplayManager {
 
     container.classList.remove('is-visible');
 
-    // đợi animation slide out
     await this.sleep(this.settings.displayDuration);
     render(null, container);
   }

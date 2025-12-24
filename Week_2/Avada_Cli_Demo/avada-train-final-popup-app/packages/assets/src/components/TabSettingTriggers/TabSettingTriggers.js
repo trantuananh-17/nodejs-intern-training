@@ -1,4 +1,4 @@
-import {FormLayout, Select} from '@shopify/polaris';
+import {FormLayout, Select, Text} from '@shopify/polaris';
 import React from 'react';
 import FormInputSettingTriggers from '../FormInput/FormInputSettingTriggers';
 import {useSettingFormContext} from '@assets/contexts/settingFormContext';
@@ -13,6 +13,9 @@ export default function TabSettingTriggers() {
 
   return (
     <FormLayout>
+      <Text as="h2" fontWeight="medium" variant="headingSm">
+        PAGES RESTRICTION
+      </Text>
       <Select
         options={options}
         onChange={value => updateSetting('allowShow', value)}

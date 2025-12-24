@@ -1,31 +1,45 @@
-import {Box, InlineStack, RangeSlider, Text} from '@shopify/polaris';
+import {Box, RangeSlider, TextField} from '@shopify/polaris';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-export default function SettingRangeSlider({value, handleRangeSliderChange, label, helpText}) {
+const MIN = 0;
+const MAX = 80;
+
+export default function SettingRangeSlider({
+  value,
+  handleRangeSliderChange,
+  label,
+  helpText,
+  subtitle,
+  error
+}) {
+  const isInvalid = value < MIN || value > MAX;
   return (
     <RangeSlider
       output
       label={label}
-      min={0}
-      max={80}
+      min={MIN}
+      max={MAX}
       value={value}
       onChange={handleRangeSliderChange}
       helpText={helpText}
       suffix={
-        <Box
-          borderWidth="050"
-          borderColor="border-brand"
-          borderRadius="100"
-          padding={100}
-          minWidth="90px"
-        >
-          <InlineStack align="space-between">
-            <Text>{value}</Text>
-            <Text>second(s)</Text>
-          </InlineStack>
+        <Box borderRadius="100" minWidth="160px">
+          <TextField
+            type="number"
+            value={String(value)}
+            onChange={val => {
+              handleRangeSliderChange(Number(val));
+            }}
+            autoComplete="off"
+            min={0}
+            max={80}
+            labelHidden
+            suffix={subtitle}
+          />
         </Box>
       }
+      error={isInvalid && error}
     />
   );
 }
@@ -34,5 +48,7 @@ SettingRangeSlider.propTypes = {
   value: PropTypes.number,
   handleRangeSliderChange: PropTypes.func,
   label: PropTypes.string,
-  helpText: PropTypes.string
+  helpText: PropTypes.string,
+  subtitle: PropTypes.string,
+  error: PropTypes.string
 };

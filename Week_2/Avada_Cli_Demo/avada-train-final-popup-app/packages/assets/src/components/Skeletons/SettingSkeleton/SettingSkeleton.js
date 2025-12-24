@@ -12,7 +12,7 @@ import React from 'react';
 export function SettingSkeleton() {
   return (
     <Card>
-      <SkeletonTabs />
+      <SkeletonTabs count={3} />
 
       <BlockStack gap="600">
         <Box paddingBlock={200}>

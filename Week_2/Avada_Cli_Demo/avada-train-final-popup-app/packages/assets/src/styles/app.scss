@@ -10,7 +10,7 @@ body[data-lock-scrolling] {
 .Polaris-Frame__Content,
 .Polaris-Frame__Main,
 .Polaris-Frame__Body {
-  background-color: #ffffff !important;
+  background-color: #f1f2f4 !important;
 }
 
 .Avada-Frame {
@@ -43,7 +43,4 @@ body[data-lock-scrolling] {
 .Polaris-Pagination .Polaris-Button {
   border: 1px solid #babfc3 !important;
   background: var(--p-color-bg-surface) !important;
-}
-.Polaris-Button {
-  border-radius: var(--p-border-radius-100) !important;
 }

@@ -1,0 +1,27 @@
+.Avada-ReactColor {
+  background: #fff;
+  border-radius: 6px;
+  box-shadow: 0 0 0 1px #0003;
+  display: inline-block;
+  cursor: pointer;
+  width: 45px;
+  height: 45px;
+
+  .Avada-ColorBlock {
+    height: inherit;
+    width: inherit;
+    border-radius: 5px;
+    position: relative;
+  }
+}
+.Polaris-ColorPicker__HuePicker,
+.Polaris-ColorPicker__AlphaPicker {
+  width: var(--p-space-400);
+  border-radius: 8px;
+}
+
+.Polaris-ColorPicker__Dragger {
+  height: 10px;
+  width: 10px;
+  border: 3px solid var(--p-color-bg-surface);
+}
