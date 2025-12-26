@@ -105,10 +105,12 @@ export default function Settings() {
         <Layout>
           <Layout.Section variant="oneThird">
             <Preview
+              onChange={handleChange}
               data={input}
               fetched={fetched}
               preview={<NotificationPopup settings={settingForm} />}
               inline={true}
+              active={false}
             />
           </Layout.Section>
 

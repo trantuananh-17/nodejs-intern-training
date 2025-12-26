@@ -1,3 +1,4 @@
+import {useStickyFormContext} from '@assets/contexts/stickyFormContext';
 import {
   BlockStack,
   Button,
@@ -13,7 +14,9 @@ import {ChevronDownIcon, ChevronUpIcon} from '@shopify/polaris-icons';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-export default function StickySettingAdvanced({open, onToggle, stickyForm, updateSticky}) {
+export default function StickySettingAdvanced({open, onToggle}) {
+  const {stickyForm, updateSticky} = useStickyFormContext();
+
   return (
     <Card sectioned>
       <BlockStack gap={200}>
@@ -84,7 +87,5 @@ export default function StickySettingAdvanced({open, onToggle, stickyForm, updat
 
 StickySettingAdvanced.propTypes = {
   open: PropTypes.bool,
-  onToggle: PropTypes.func,
-  stickyForm: PropTypes.object.isRequired,
-  updateSticky: PropTypes.func
+  onToggle: PropTypes.func
 };

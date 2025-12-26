@@ -1,9 +1,11 @@
 import React from 'react';
 import {BlockStack, Box, Card, Checkbox, InlineStack, Labelled, Text} from '@shopify/polaris';
 import StickyPositionInput from '@assets/components/StickyPositionInput/StickyPositionInput';
-import PropTypes from 'prop-types';
+import {useStickyFormContext} from '@assets/contexts/stickyFormContext';
 
-export default function StickySettingDisplay({stickyForm, updateSticky}) {
+export default function StickySettingDisplay() {
+  const {stickyForm, updateSticky} = useStickyFormContext();
+
   return (
     <Card roundedAbove="sm">
       <Box minHeight="180px">
@@ -39,7 +41,4 @@ export default function StickySettingDisplay({stickyForm, updateSticky}) {
   );
 }
 
-StickySettingDisplay.propTypes = {
-  stickyForm: PropTypes.object,
-  updateSticky: PropTypes.func
-};
+StickySettingDisplay.propTypes = {};

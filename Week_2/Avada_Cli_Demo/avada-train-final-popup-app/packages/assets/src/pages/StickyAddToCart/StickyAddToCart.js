@@ -1,4 +1,5 @@
 import Preview from '@assets/components/Preview/Preview';
+import PreviewStickyATCModal from '@assets/components/PreviewStickyATCModal/PreviewStickyATCModal';
 import StickySettingAdvanced from '@assets/components/StickyAddToCard/StickySettingAdvanced';
 import StickySettingContent from '@assets/components/StickyAddToCard/StickySettingContent';
 import StickySettingDisplay from '@assets/components/StickyAddToCard/StickySettingDisplay';
@@ -11,6 +12,8 @@ import React, {useCallback, useState} from 'react';
 export default function StickyAddToCart() {
   const [open, setOpen] = useState(false);
   const {stickyForm, updateSticky} = useStickyFormContext();
+  const [active, setActive] = useState(false);
+  const handleChange = useCallback(() => setActive(!active), [active]);
 
   const handleToggle = useCallback(() => setOpen(open => !open), []);
   return (
@@ -33,25 +36,32 @@ export default function StickyAddToCart() {
       <Box paddingBlockEnd={600}>
         <Layout>
           <Layout.Section variant="oneThird">
-            <Preview fetched={true} data={1} preview={<StickyCart />} inline={false} />
+            <Preview
+              onChange={handleChange}
+              fetched={true}
+              data={1}
+              preview={<StickyCart />}
+              inline={false}
+            />
           </Layout.Section>
 
           <Layout.Section>
             <BlockStack gap="400">
-              <StickySettingContent stickyForm={stickyForm} updateSticky={updateSticky} />
-              <StickySettingDisplay stickyForm={stickyForm} updateSticky={updateSticky} />
-              <StickySettingStyle stickyForm={stickyForm} updateSticky={updateSticky} />
-
-              <StickySettingAdvanced
-                open={open}
-                onToggle={handleToggle}
-                stickyForm={stickyForm}
-                updateSticky={updateSticky}
-              />
+              <StickySettingContent />
+              <StickySettingDisplay />
+              <StickySettingStyle />
+              <StickySettingAdvanced open={open} onToggle={handleToggle} />
             </BlockStack>
           </Layout.Section>
         </Layout>
       </Box>
+      {active && (
+        <PreviewStickyATCModal
+          active={active}
+          handleChange={handleChange}
+          stickyForm={stickyForm}
+        />
+      )}
     </Page>
   );
 }

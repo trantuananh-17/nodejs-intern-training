@@ -3,6 +3,32 @@
   position: relative;
   z-index: 99;
   color: #333;
+  padding-block: 20px;
+}
+
+.Avada-PreviewWrapper__Container {
+  display: flex;
+  flex-direction: column;
+}
+
+.Avada_PreviewMobile__Wrapper {
+  font-family: Poppins, sans-serif;
+  width: 100%;
+  max-width: 312px;
+  height: 568px;
+  background-color: #eaeaea;
+  border-radius: 30px;
+  border: 3px solid #e0e0e0;
+  position: relative;
+  margin: 15px auto;
+  overflow: hidden;
+
+  .Avada_PreviewMobile__Inline {
+    position: relative;
+    height: 100%;
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+  }
 }
 
 .Avava-SP__Wrapper .Avava-SP__LinkWrapper {

@@ -2,7 +2,7 @@ import {BlockStack, Box, Card, Labelled, Text} from '@shopify/polaris';
 import React from 'react';
 import ThemeColorInput from '../ThemeColorInput/ThemeColorInput';
 import StickyBorderButtonInput from '../StickyBorderButtonInput/StickyBorderButtonInput';
-import PropTypes from 'prop-types';
+import {useStickyFormContext} from '@assets/contexts/stickyFormContext';
 
 const colors = [
   {key: 'bgColor', label: 'Background color'},
@@ -13,7 +13,9 @@ const colors = [
   {key: 'buttonBackgroundColor', label: 'Button background color'}
 ];
 
-export default function StickySettingStyle({stickyForm, updateSticky}) {
+export default function StickySettingStyle() {
+  const {stickyForm, updateSticky} = useStickyFormContext();
+
   return (
     <Card roundedAbove="sm">
       <Box minHeight="180px">
@@ -45,7 +47,4 @@ export default function StickySettingStyle({stickyForm, updateSticky}) {
   );
 }
 
-StickySettingStyle.propTypes = {
-  stickyForm: PropTypes.object,
-  updateSticky: PropTypes.func
-};
+StickySettingStyle.propTypes = {};

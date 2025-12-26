@@ -1,23 +1,24 @@
 import {BlockStack, Box, Button, Card, InlineGrid, InlineStack, Text} from '@shopify/polaris';
-import {ViewIcon} from '@shopify/polaris-icons';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-export default function Preview({preview, fetched, data, inline}) {
+export default function Preview({preview, onChange, fetched, data, inline}) {
   return (
     <Card roundedAbove="sm">
       <Box minHeight="180px">
         <BlockStack>
           <InlineGrid columns="1fr auto">
-            <Text as="h2" variant="headingSm">
+            <Text as="h2" variant="headingMd">
               Preview
             </Text>
             <Button
-              // onClick={handleChange}
+              onClick={onChange}
               accessibilityLabel="Open Preview"
-              icon={ViewIcon}
+
               // loading={loading}
-            />
+            >
+              Desktop
+            </Button>
           </InlineGrid>
           {inline ? (
             <InlineStack blockAlign="center" align="center">
@@ -34,7 +35,7 @@ export default function Preview({preview, fetched, data, inline}) {
 
 Preview.propTypes = {
   preview: PropTypes.node,
-  settings: PropTypes.object,
+  onChange: PropTypes.func,
   fetched: PropTypes.bool,
   data: PropTypes.object,
   inline: PropTypes.bool

@@ -16,11 +16,11 @@ const defaultStickyForm = {
   position: 'avada-position-top',
 
   bgColor: '#ffffff',
-  buttonBackgroundColor: '#000000',
-  priceColor: '#000000',
   productNameColor: '#000000',
+  priceColor: '#000000',
   specialPriceColor: '#FF0000',
   buttonTextColor: '#ffffff',
+  buttonBackgroundColor: '#000000',
   buttonBorderRadius: 'none',
 
   hideOutStock: true,

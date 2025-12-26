@@ -21,7 +21,7 @@ export default function PreviewNotificationModal({active, handleChange, settings
           <Modal.Section>
             <Box minHeight="300px" position="relative">
               <Box position="absolute" {...getPositionProps(settings?.position)}>
-                <NotificationPopup settings={settings} />
+                <NotificationPopup settings={settings} active={true} />
               </Box>
             </Box>
           </Modal.Section>

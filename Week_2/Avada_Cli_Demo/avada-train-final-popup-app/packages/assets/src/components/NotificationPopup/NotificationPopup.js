@@ -10,7 +10,8 @@ const NotificationPopup = ({
   productName = 'Puffer Jacket With Hidden Hood',
   timestamp = '2025-12-17T07:10:49.000Z',
   productImage = 'https://cdn.shopify.com/s/files/1/0974/6405/8168/files/Main_b13ad453-477c-4ed1-9b43-81f3345adfd6_800x800.jpg?v=1765174400',
-  settings
+  settings,
+  active
 }) => {
   const {
     hideTimeAgo,
@@ -28,7 +29,7 @@ const NotificationPopup = ({
 
   const timeAgo = formatTimeAgo(timestamp);
 
-  return (
+  const content = (
     <div className="Avava-SP__Wrapper fadeInUp animated">
       <div className="Avava-SP__Inner">
         <div
@@ -82,6 +83,25 @@ const NotificationPopup = ({
       </div>
     </div>
   );
+
+  return active ? (
+    content
+  ) : (
+    <div className="Avada-PreviewWrapper__Container">
+      <div className="Avada-PreviewWrapper">
+        <div
+          className="Avada_PreviewMobile__Wrapper"
+          style={{
+            backgroundRepeat: 'no-repeat',
+            backgroundColor: 'rgb(247, 247, 247)',
+            backgroundSize: 'cover'
+          }}
+        >
+          <div className="Avada_PreviewMobile__Inline">{content}</div>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 NotificationPopup.propTypes = {
@@ -91,7 +111,8 @@ NotificationPopup.propTypes = {
   productName: PropTypes.string,
   timestamp: PropTypes.string,
   productImage: PropTypes.string,
-  settings: PropTypes.object
+  settings: PropTypes.object,
+  active: PropTypes.bool
 };
 
 export default NotificationPopup;
