@@ -34,7 +34,7 @@ export default function ThemeColorSelect({hex, onSelect}) {
                   position: 'relative',
                   outline: 'none',
                   borderRadius: '3px',
-                  boxShadow: `rgba(0, 0, 0, 0.15) 0px 0px 0px 1px inset, ${
+                  boxShadow: ` ${
                     color === hex
                       ? `rgba(0,0,0,0.15) 0 0 0 1px inset,
                         rgb(${red}, ${green}, ${blue}) 0 0 4px`

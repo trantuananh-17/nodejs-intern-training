@@ -8,8 +8,6 @@ import {useSettingFormContext} from '@assets/contexts/settingFormContext';
 export default function TabSettingTheme() {
   const {settingForm, updateSetting, updateSettings} = useSettingFormContext();
 
-  console.log(settingForm);
-
   return (
     <BlockStack gap={400}>
       <Text as="h2" fontWeight="medium" variant="headingSm">

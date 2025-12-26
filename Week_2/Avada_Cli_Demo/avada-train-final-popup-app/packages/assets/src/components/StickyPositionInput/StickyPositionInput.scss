@@ -1,0 +1,39 @@
+.Avada-MobilePositionNew {
+  width: 105px;
+  height: 105px;
+  padding: 8px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+
+  border: 1px solid #e3e3e3;
+  border-radius: 4px;
+
+  box-shadow: 1px 0 #00000021 inset, -1px 0 #00000021 inset, 0 -1px #0000002b inset,
+    0 1px #cccccc80 inset, 0 8px 16px -4px #1a1a1a38;
+
+  &--selected {
+    border-color: #166ce1 !important;
+
+    .Avada-MobilePositionNew__Input {
+      background-color: #166ce1 !important;
+    }
+  }
+
+  &__Input {
+    width: 100%;
+    height: 18px;
+    background-color: #8a8a8a;
+
+    &--avada-position-top,
+    &--avada-position-bottom {
+      border-radius: 4px;
+      justify-self: flex-end;
+    }
+  }
+
+  &:has(.Avada-MobilePositionNew__Input--avada-position-bottom) {
+    justify-content: flex-end;
+  }
+}

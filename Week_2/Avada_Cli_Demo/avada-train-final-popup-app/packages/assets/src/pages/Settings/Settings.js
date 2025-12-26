@@ -1,17 +1,5 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {
-  BlockStack,
-  Box,
-  Button,
-  Card,
-  InlineGrid,
-  InlineStack,
-  Layout,
-  LegacyCard,
-  Page,
-  Tabs,
-  Text
-} from '@shopify/polaris';
+import {Box, Button, Layout, LegacyCard, Page, Tabs} from '@shopify/polaris';
 import NotificationPopup from '@assets/components/NotificationPopup/NotificationPopup';
 import '@assets/styles/pages/setting.scss';
 import TabSettingDisplay from '@assets/components/TabSettingDisplay/TabSettingDisplay';
@@ -20,9 +8,9 @@ import {useSettingFormContext} from '@assets/contexts/settingFormContext';
 import useFetchApi from '@assets/hooks/api/useFetchApi';
 import useEditApi from '../../hooks/api/useEditApi';
 import {SettingSkeleton} from '../../components/Skeletons/SettingSkeleton/SettingSkeleton';
-import {ViewIcon} from '@shopify/polaris-icons';
 import PreviewNotificationModal from '@assets/components/PreviewNotificationModal/PreviewNotificationModal';
 import TabSettingTheme from '@assets/components/TabSettingTheme/TabSettingTheme';
+import Preview from '@assets/components/Preview/Preview';
 
 const tabs = [
   {
@@ -57,10 +45,9 @@ export default function Settings() {
     defaultData: null
   });
 
-  // Chuyển tab setting
   const handleTabChange = useCallback(selectedTabIndex => setSelected(selectedTabIndex), []);
 
-  // Mở preview
+  // Open preview
   const handleChange = useCallback(() => setActive(!active), [active]);
 
   const {handleEdit} = useEditApi({
@@ -117,28 +104,12 @@ export default function Settings() {
       <Box paddingBlockEnd={600}>
         <Layout>
           <Layout.Section variant="oneThird">
-            <Card roundedAbove="sm">
-              <Box minHeight="180px">
-                <div className="preview-sticky">
-                  <BlockStack gap="800">
-                    <InlineGrid columns="1fr auto">
-                      <Text as="h2" variant="headingSm">
-                        Preview
-                      </Text>
-                      <Button
-                        onClick={handleChange}
-                        accessibilityLabel="Open Preview"
-                        icon={ViewIcon}
-                        loading={loading}
-                      />
-                    </InlineGrid>
-                    <InlineStack blockAlign="center">
-                      {fetched && input && <NotificationPopup settings={settingForm} />}
-                    </InlineStack>
-                  </BlockStack>
-                </div>
-              </Box>
-            </Card>
+            <Preview
+              data={input}
+              fetched={fetched}
+              preview={<NotificationPopup settings={settingForm} />}
+              inline={true}
+            />
           </Layout.Section>
 
           <Layout.Section>

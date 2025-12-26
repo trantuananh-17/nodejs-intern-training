@@ -1,0 +1,179 @@
+.Avada-PreviewWrapper__Container {
+  display: flex;
+  flex-direction: column;
+}
+
+.Avada_PreviewMobile__Wrapper {
+  font-family: Poppins, sans-serif;
+  width: 100%;
+  max-width: 312px;
+  height: 568px;
+  background-color: #eaeaea;
+  border-radius: 30px;
+  border: 3px solid #e0e0e0;
+  position: relative;
+  margin: 15px auto;
+  overflow: hidden;
+
+  .Avada_PreviewMobile__Inline {
+    position: relative;
+    height: 100%;
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+  }
+}
+
+.Avada-StickyATC-ProductInfo {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  z-index: 9999;
+  transform: translateY(100%);
+  transition: 0.3s ease-in-out;
+
+  &.avada-position-top {
+    top: 0;
+    border-bottom: solid 1px #e3e3e3;
+  }
+  &.avada-position-bottom {
+    bottom: 0;
+    border-top: solid 1px #e3e3e3;
+  }
+
+  &.-preview {
+    position: absolute !important;
+    left: 0;
+    right: 0;
+  }
+
+  &.-visible {
+    transform: translateY(0);
+  }
+
+  &.-mobile {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    padding: 10px;
+    align-items: center;
+
+    .Avada-StickyATC-ProductInfo__Top {
+      flex: 1 1 50%;
+      margin: 0 0 5px;
+      gap: 10px;
+      min-width: 0;
+
+      .Avada-ThumbnailImage__Wrapper {
+        margin: 0;
+
+        .Avada-ThumbnailImage__Image {
+          width: 40px;
+          height: 40px;
+        }
+      }
+
+      .Avada-StickyATC-Heading {
+        font-size: 12px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+        .Avada-StickyATC-Title {
+          font-size: 14px;
+        }
+      }
+    }
+
+    .Avada-StickyATC-Quantity {
+      flex: 1 1 35%;
+      gap: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      margin-bottom: 5px;
+
+      > input {
+        width: 40px;
+      }
+
+      > span {
+        font-size: 12px;
+      }
+    }
+
+    .Avada-Offer__ButtonAddToCart {
+      flex: 1 1 40%;
+      margin: 0;
+    }
+  }
+
+  .Avada-StickyATC-ProductInfo__Left,
+  .Avada-StickyATC-ProductInfo__Right,
+  .Avada-StickyATC-ProductInfo__Top {
+    display: flex;
+    align-items: center;
+    margin: 0 50px;
+  }
+
+  .Avada-StickyATC-Title {
+    font-size: 16px;
+  }
+
+  .Avada-StickyATC-Price {
+    font-weight: 600;
+    margin-top: 7px;
+  }
+
+  .Avada-StickyATC-DiscountPrice {
+    margin-right: 10px;
+  }
+
+  .Avada-StickyATC-ActualPrice {
+    color: #d91c08;
+    text-decoration: line-through;
+  }
+}
+
+.Avada-ThumbnailImage__Wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+
+  .Avada-ThumbnailImage__Image {
+    width: 60px;
+    height: 60px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    img {
+      width: 100%;
+      height: 100%;
+      z-index: 10;
+    }
+  }
+}
+
+.Avada-Offer__ButtonAddToCart {
+  padding: 0 10px;
+  min-width: 120px;
+  background: #000;
+  cursor: pointer;
+  color: #fff;
+  font-size: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 12px 0;
+  height: 45px;
+  border: unset;
+  font-family: inherit;
+  font-weight: 600;
+
+  .Avada-StickyATC-ProductInfo & {
+    height: 33px;
+    border-radius: var(--border-radius-atc);
+  }
+}

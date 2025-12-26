@@ -74,8 +74,8 @@ export default function ThemeColorInput({label, colorHex, onChange}) {
 
                 <ThemeColorSelect
                   onSelect={value => {
-                    setColor(hexToHsba(value)); // sync local ngay
-                    onChange(value); // update context
+                    setColor(hexToHsba(value));
+                    onChange(value);
                   }}
                   hex={colorHex}
                 />

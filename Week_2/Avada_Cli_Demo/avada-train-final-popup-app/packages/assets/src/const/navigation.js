@@ -1,7 +1,7 @@
 export const navigationLinks = [
   {
     label: 'Home',
-    destination: '/'
+    destination: '/embed/'
   },
   {
     label: 'Notifications',
@@ -10,5 +10,9 @@ export const navigationLinks = [
   {
     label: 'Settings',
     destination: '/embed/settings'
+  },
+  {
+    label: 'Sticky add to cart',
+    destination: '/embed/sticky-add-to-cart'
   }
 ];

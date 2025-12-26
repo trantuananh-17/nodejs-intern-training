@@ -50,8 +50,6 @@ export default class DisplayManager {
 
       await this.fadeOut();
 
-      await this.sleep(this.settings.popsInterval);
-
       index++;
 
       if (index >= this.notifications.length) {
@@ -73,7 +71,8 @@ export default class DisplayManager {
 
     container.classList.remove('is-visible');
 
-    await this.sleep(this.settings.displayDuration);
+    await this.sleep(this.settings.popsInterval);
+
     render(null, container);
   }
 
@@ -84,9 +83,34 @@ export default class DisplayManager {
   }
 
   display({notification}) {
+    const {
+      backgroundColor,
+      backgroundImage,
+      actionColorStart,
+      actionColorEnd,
+      isGradient,
+      hideBackgroundSelect,
+      headingColor,
+      textColor,
+      timeColor
+    } = this.settings;
     const container = document.querySelector('#Avada-SalePop');
 
-    render(<NotificationPopup {...notification} />, container);
+    render(
+      <NotificationPopup
+        {...notification}
+        backgroundColor={backgroundColor}
+        backgroundImage={backgroundImage}
+        actionColorStart={actionColorStart}
+        actionColorEnd={actionColorEnd}
+        isGradient={isGradient}
+        hideBackgroundSelect={hideBackgroundSelect}
+        headingColor={headingColor}
+        textColor={textColor}
+        timeColor={timeColor}
+      />,
+      container
+    );
 
     container.offsetHeight;
 
