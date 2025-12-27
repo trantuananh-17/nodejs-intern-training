@@ -37,7 +37,7 @@ export async function getSettingByShopifyDomain(shopifyDomain) {
 }
 
 /**
- * Hàm này sẽ loại bỏ các dữ liệu: created at, updated at, shopID
+ * Function will be slice field: created at, updated at, shopID
  *
  * @param {*} shopifyDomain
  * @returns {Promise<setting>}

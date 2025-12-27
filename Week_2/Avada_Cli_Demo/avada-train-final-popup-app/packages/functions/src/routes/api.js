@@ -5,6 +5,7 @@ import * as subscriptionController from '@functions/controllers/subscriptionCont
 import * as appNewsController from '@functions/controllers/appNewsController';
 import * as settingController from '@functions/controllers/settingController';
 import * as notificationController from '@functions/controllers/notificationController';
+import * as cartStickyController from '@functions/controllers/cartStickyController';
 import {getApiPrefix} from '@functions/const/app';
 
 export default function apiRouter(isEmbed = false) {
@@ -22,6 +23,9 @@ export default function apiRouter(isEmbed = false) {
 
   router.get('/settings', settingController.getSetting);
   router.put('/settings', settingController.updateOne);
+
+  router.get('/cart/sticky', cartStickyController.getCartSticky);
+  router.put('/cart/sticky', cartStickyController.updateCartSticky);
 
   router.get('/notifications', notificationController.getNotifications);
   router.post('/notifications', notificationController.syncManualOrdersToNotifications);

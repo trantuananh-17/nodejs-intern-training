@@ -5,6 +5,7 @@ import shopifyOptionalScopes from '@functions/config/shopifyOptionalScopes';
 import * as notificationController from '@functions/controllers/notificationController';
 import * as settingController from '@functions/controllers/settingController';
 import * as webhookController from '@functions/controllers/webhookController';
+import * as cartStickyController from '@functions/controllers/cartStickyController';
 import createErrorHandler from '@functions/middleware/errorHandler';
 import apiRouter from '@functions/routes/api';
 import * as errorService from '@functions/services/errorService';
@@ -39,6 +40,7 @@ api.use(
         await Promise.all([
           settingController.createInitSettingAfterLogin(ctx),
           notificationController.syncOrdersToNotifications(ctx),
+          cartStickyController.createInitCartStickyAfterLogin(ctx),
           webhookController.createWebhook(ctx)
         ]);
       } catch (error) {

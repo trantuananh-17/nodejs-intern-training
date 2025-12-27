@@ -6,7 +6,7 @@ const firestore = new Firestore();
 const settingRef = firestore.collection('settings');
 
 /**
- * Lấy setting theo shopId
+ * get setting by shopId
  *
  * @param {string} id
  * @returns {Promise<presentDataFromDoc<settingDoc>>}
@@ -26,7 +26,7 @@ export async function getSettingByShopId(id) {
 }
 
 /**
- * Lấy setting theo shopId
+ * get setting by shopifyDomain
  *
  * @param {string} shopifyDomain
  * @returns {Promise<presentDataFromDoc<settingDoc>>}
@@ -46,7 +46,7 @@ export async function getSettingByShopifyDomain(shopifyDomain) {
 }
 
 /**
- * Tạo app setting
+ * create app setting
  *
  * @param {string} shopId
  * @param {string} shopifyDomain
@@ -61,17 +61,15 @@ export async function createSetting(shopId, shopifyDomain, data) {
 }
 
 /**
- * Cập nhật setting
+ * update setting
  *
  * @param {string} id
  * @param {object} data
- * @returns {Promise<settingDoc>}
+ * @returns {Promise<WriteResult>}
  */
 export async function updateSetting(id, data) {
   const updated = await settingRef.doc(id).update({
     ...data,
-    // shopId: id,
-    // shopifyDomain,
     updatedAt: new Date()
   });
 
