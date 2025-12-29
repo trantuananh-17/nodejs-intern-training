@@ -1,7 +1,7 @@
 import * as orderService from '@functions/services/orderService';
 import * as notificationRepository from '@functions/repositories/notificationRepository';
 import * as shopRepository from '@functions/repositories/shopRepository';
-import * as webhookRepository from '@functions/repositories/webhookRepository';
+import * as productRepository from '@functions/repositories/productRepository';
 
 /**
  *
@@ -81,7 +81,7 @@ export async function getNotificationItem(shopData, orderData) {
     throw new Error('Order not found');
   }
 
-  const productImage = await webhookRepository.getProductByProductId(
+  const productImage = await productRepository.getProductImageByProductId(
     shopData,
     orderData.line_items[0].product_id
   );

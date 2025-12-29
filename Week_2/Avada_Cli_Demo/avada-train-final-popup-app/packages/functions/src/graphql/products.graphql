@@ -1,0 +1,59 @@
+query GetProducts($first: Int!, $after: String) {
+  products(first: $first, after: $after) {
+    edges {
+      cursor
+      node {
+        id
+        title
+        handle
+        tags
+        status
+        totalInventory
+        hasOnlyDefaultVariant
+
+        options {
+          name
+          values
+        }
+
+        media(first: 1) {
+          edges {
+            node {
+              ... on MediaImage {
+                image {
+                  url
+                }
+              }
+            }
+          }
+        }
+
+        variants(first: 100) {
+          edges {
+            node {
+              id
+              title
+              price
+              compareAtPrice
+              inventoryQuantity
+              availableForSale
+              inventoryPolicy
+              inventoryItem {
+                tracked
+              }
+              selectedOptions {
+                name
+                value
+              }
+            }
+          }
+        }
+      }
+    }
+
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+  }
+}

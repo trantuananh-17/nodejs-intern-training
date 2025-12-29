@@ -1,4 +1,4 @@
-import {getCurrentShopData} from '@functions/helpers/auth';
+import {getCurrentShopData, getCurrentUserInstance} from '@functions/helpers/auth';
 import * as cartStickyService from '@functions/services/cartStickyService';
 
 export async function getCartSticky(ctx) {

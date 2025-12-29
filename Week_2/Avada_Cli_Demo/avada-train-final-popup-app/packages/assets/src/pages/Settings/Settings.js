@@ -29,6 +29,7 @@ const tabs = [
     panelID: 'thme-notification-1'
   }
 ];
+
 /**
  * @return {JSX.Element}
  */
@@ -85,7 +86,7 @@ export default function Settings() {
     }
   }, [input]);
 
-  return (
+  return fetched && input ? (
     <Page
       title="Settings"
       subtitle="Decide how your notifications will display"
@@ -117,7 +118,6 @@ export default function Settings() {
           <Layout.Section>
             <LegacyCard>
               <div className="Avada_SP_tabs">
-                {!fetched && <SettingSkeleton />}
                 {fetched && input && (
                   <Tabs tabs={tabs} selected={selected} onSelect={handleTabChange}>
                     <LegacyCard.Section title={tabs[selected].title}>
@@ -141,6 +141,8 @@ export default function Settings() {
         />
       )}
     </Page>
+  ) : (
+    <SettingSkeleton />
   );
 }
 

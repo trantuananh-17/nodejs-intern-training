@@ -27,6 +27,7 @@ export async function createInitCartStickyAfterLogin(shopID, shopifyDomain) {
     showQtyInput: true,
     showVariantMobile: false,
     qtyText: 'Quantity',
+    showVariantMobile: false,
     successResponse: '👏 Item added to cart!',
 
     enableDesktop: false,
@@ -44,13 +45,7 @@ export async function createInitCartStickyAfterLogin(shopID, shopifyDomain) {
     hideOutStock: true,
     cartRedirectCheckout: false,
     showOnHomePage: true,
-    specificProducts: [
-      {
-        status: 'ACTIVE',
-        tags: ['Accessory', 'Sport', 'Winter'],
-        title: 'Selling Plans Ski Wax'
-      }
-    ],
+    specificProducts: [],
     customBtn: true,
 
     btnAddCartText: 'Add to cart'
@@ -88,7 +83,7 @@ export async function getCartStickyByShopifyDomain(shopifyDomain) {
 }
 
 export async function updateCartSticky(shopID, data) {
-  await getSettingByShopId(shopID);
+  await getCartStickyByShopId(shopID);
 
   return await cartStickyRepository.updateOne(shopID, data);
 }

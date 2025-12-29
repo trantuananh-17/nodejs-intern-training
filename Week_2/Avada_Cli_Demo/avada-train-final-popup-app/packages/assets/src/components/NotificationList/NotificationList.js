@@ -47,7 +47,6 @@ export default function NotificationList({
         renderItem={renderItem}
         selectedItems={selectedItems}
         onSelectionChange={setSelectedItems}
-        // totalItemsCount={items.length}
         sortValue={sortValue}
         bulkActions={bulkActions}
         sortOptions={[
@@ -79,6 +78,7 @@ export default function NotificationList({
             timestamp={timestamp}
             productImage={productImage}
             settings={settingForm}
+            active={true}
           />
           <BlockStack align="end" inlineAlign="end">
             <Text as="p" variant="bodySm">

@@ -12,7 +12,12 @@ import {
 } from '@shopify/polaris';
 import {ChevronDownIcon, ChevronUpIcon} from '@shopify/polaris-icons';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, {Suspense} from 'react';
+import ProductSekeleton from '../Skeletons/ProductSekeleton/ProductSekeleton';
+
+const ProductSelect = React.lazy(() =>
+  import('../StickyATCSelectProductModal/StickyATCSelectProductModal')
+);
 
 export default function StickySettingAdvanced({open, onToggle}) {
   const {stickyForm, updateSticky} = useStickyFormContext();
@@ -65,6 +70,13 @@ export default function StickySettingAdvanced({open, onToggle}) {
                 'This option allows you to display sticky bar on Homepage. Recommended for single-product stores'
               }
             />
+
+            {open && stickyForm.showOnHomePage && (
+              <Suspense fallback={<ProductSekeleton />}>
+                <ProductSelect />
+              </Suspense>
+            )}
+
             <Checkbox
               label="Custom add-to-cart button"
               onChange={value => updateSticky('customBtn', value)}

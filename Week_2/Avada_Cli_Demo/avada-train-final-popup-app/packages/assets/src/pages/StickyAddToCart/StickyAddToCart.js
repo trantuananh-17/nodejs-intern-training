@@ -1,22 +1,58 @@
 import Preview from '@assets/components/Preview/Preview';
 import PreviewStickyATCModal from '@assets/components/PreviewStickyATCModal/PreviewStickyATCModal';
+import CartStickySkeleton from '@assets/components/Skeletons/CartStickySkeleton/CartStickySkeleton';
 import StickySettingAdvanced from '@assets/components/StickyAddToCard/StickySettingAdvanced';
 import StickySettingContent from '@assets/components/StickyAddToCard/StickySettingContent';
 import StickySettingDisplay from '@assets/components/StickyAddToCard/StickySettingDisplay';
 import StickySettingStyle from '@assets/components/StickyAddToCard/StickySettingStyle';
 import StickyCart from '@assets/components/StickyCart/StickyCart';
 import {useStickyFormContext} from '@assets/contexts/stickyFormContext';
+import useEditApi from '@assets/hooks/api/useEditApi';
+import useFetchApi from '@assets/hooks/api/useFetchApi';
 import {Badge, BlockStack, Box, Button, Layout, Page} from '@shopify/polaris';
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 
 export default function StickyAddToCart() {
   const [open, setOpen] = useState(false);
-  const {stickyForm, updateSticky} = useStickyFormContext();
   const [active, setActive] = useState(false);
+  const {stickyForm, setStickyForm} = useStickyFormContext();
+  const [editLoading, setEditLoading] = useState(false);
+
+  const {loading, data: cartSticky, setData: setCartSticky, fetched} = useFetchApi({
+    url: '/cart/sticky',
+    defaultData: null
+  });
+
+  const {handleEdit} = useEditApi({
+    url: '/cart/sticky'
+  });
+
   const handleChange = useCallback(() => setActive(!active), [active]);
 
   const handleToggle = useCallback(() => setOpen(open => !open), []);
-  return (
+
+  const handleSave = async () => {
+    setEditLoading(true);
+
+    const cartStickyForm = await handleEdit(stickyForm);
+
+    setCartSticky(cartStickyForm);
+    if (cartStickyForm) {
+      console.log('Saved!');
+    }
+
+    setEditLoading(false);
+  };
+
+  useEffect(() => {
+    if (cartSticky) {
+      setStickyForm(prev => ({
+        ...prev,
+        ...cartSticky
+      }));
+    }
+  }, [cartSticky]);
+  return fetched && cartSticky ? (
     <Page
       title="Sticky Add To Cart"
       titleMetadata={<Badge tone="success">Active</Badge>}
@@ -25,9 +61,9 @@ export default function StickyAddToCart() {
         <Button
           variant="primary"
           size="medium"
-          // onClick={handleSave}
-          // disabled={editLoading}
-          // loading={loading || editLoading}
+          onClick={handleSave}
+          disabled={editLoading}
+          loading={loading || editLoading}
         >
           <span>Save</span>
         </Button>
@@ -55,13 +91,9 @@ export default function StickyAddToCart() {
           </Layout.Section>
         </Layout>
       </Box>
-      {active && (
-        <PreviewStickyATCModal
-          active={active}
-          handleChange={handleChange}
-          stickyForm={stickyForm}
-        />
-      )}
+      {active && <PreviewStickyATCModal active={active} handleChange={handleChange} />}
     </Page>
+  ) : (
+    <CartStickySkeleton />
   );
 }

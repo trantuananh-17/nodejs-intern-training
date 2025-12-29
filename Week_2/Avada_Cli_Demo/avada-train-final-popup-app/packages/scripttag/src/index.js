@@ -7,7 +7,6 @@ console.log('This is the script tag');
   const apiManager = new ApiManager();
   const displayManager = new DisplayManager();
   const {notifications, settings} = await apiManager.getNotifications();
-  console.log(notifications, settings);
 
   displayManager.initialize({notifications, settings});
 })();

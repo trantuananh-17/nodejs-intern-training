@@ -7,7 +7,6 @@ export default function PreviewStickyATCModal({active, handleChange}) {
   return (
     <Frame>
       <Modal
-        // activator={activator}
         open={active}
         onClose={handleChange}
         title="Desktop preview"

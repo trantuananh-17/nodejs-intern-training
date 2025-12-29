@@ -9,6 +9,7 @@ const defaultStickyForm = {
   showQtyInput: true,
   showVariantMobile: false,
   qtyText: 'Quantity',
+  showVariantMobile: false,
   successResponse: '👏 Item added to cart!',
 
   enableDesktop: false,
@@ -26,13 +27,7 @@ const defaultStickyForm = {
   hideOutStock: true,
   cartRedirectCheckout: false,
   showOnHomePage: true,
-  specificProducts: [
-    {
-      status: 'ACTIVE',
-      tags: ['Accessory', 'Sport', 'Winter'],
-      title: 'Selling Plans Ski Wax'
-    }
-  ],
+  specificProducts: [],
   customBtn: true,
 
   btnAddCartText: 'Add to cart'

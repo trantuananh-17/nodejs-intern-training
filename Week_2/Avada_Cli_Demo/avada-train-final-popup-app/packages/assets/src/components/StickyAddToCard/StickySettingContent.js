@@ -32,6 +32,12 @@ export default function StickySettingContent() {
                 onChange={value => updateSticky('showQtyInput', value)}
                 checked={stickyForm.showQtyInput}
               />
+              <Checkbox
+                label="Show variant option on Mobile"
+                onChange={value => updateSticky('showVariantMobile', value)}
+                checked={stickyForm.showVariantMobile}
+                helpText={'Mobile screen is much smaller, please consider showing variant option'}
+              />
 
               <TextField
                 label="Quantity text"

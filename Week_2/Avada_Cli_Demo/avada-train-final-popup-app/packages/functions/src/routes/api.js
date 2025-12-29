@@ -6,6 +6,7 @@ import * as appNewsController from '@functions/controllers/appNewsController';
 import * as settingController from '@functions/controllers/settingController';
 import * as notificationController from '@functions/controllers/notificationController';
 import * as cartStickyController from '@functions/controllers/cartStickyController';
+import * as productController from '@functions/controllers/productController';
 import {getApiPrefix} from '@functions/const/app';
 
 export default function apiRouter(isEmbed = false) {
@@ -30,6 +31,9 @@ export default function apiRouter(isEmbed = false) {
   router.get('/notifications', notificationController.getNotifications);
   router.post('/notifications', notificationController.syncManualOrdersToNotifications);
   router.delete('/notifications', notificationController.deleteNotificationByIds);
+
+  router.get('/products', productController.getProducts);
+  router.get('/product/:id', productController.getProduct);
 
   return router;
 }
