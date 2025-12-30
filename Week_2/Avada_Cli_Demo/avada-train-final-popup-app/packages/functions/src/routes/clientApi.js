@@ -6,4 +6,5 @@ const router = new Router({
 });
 
 router.get('/notifications', apiClientController.getNotificationsAndSetting);
+
 export default router;

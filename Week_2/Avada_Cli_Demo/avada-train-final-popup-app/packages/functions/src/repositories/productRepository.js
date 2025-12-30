@@ -31,7 +31,11 @@ export async function getProducts(shopData, first, after) {
 }
 
 export async function getProductById(shopData, productId) {
+  console.log(shopData, productId);
+
   const shopify = await initShopify(shopData);
+
+  console.log(shopify);
 
   const productQuery = loadGraphQL('/product.sync.graphql');
 

@@ -1,4 +1,5 @@
 import * as productRepository from '@functions/repositories/productRepository';
+import * as shopSerivce from '@functions/services/shopService';
 
 export async function getProducts(shopData, first, after) {
   const result = await productRepository.getProducts(shopData, first, after);
@@ -14,9 +15,18 @@ export async function getProducts(shopData, first, after) {
 
 export async function getProduct(shopData, productId) {
   const result = await productRepository.getProductById(shopData, productId);
+
   console.log(result);
 
+  if (!result) return;
+
   return mapProductNode(result.product);
+}
+
+export async function getProductStoreFront(shopDomain, productId) {
+  const shopData = await shopSerivce.getShopByShopifyDomain(shopDomain);
+
+  return await getProduct(shopData, productId);
 }
 
 function mapProductNode(node) {
